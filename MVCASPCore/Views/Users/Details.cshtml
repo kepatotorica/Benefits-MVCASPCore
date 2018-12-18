@@ -1,6 +1,7 @@
 ﻿@model MVCASPCore.Models.Users
 <head>
     <script src="jquery-3.3.1.min.js"></script>
+    <script>"~/js/pieChart.js"</script>
 </head>
 
 @{
@@ -96,28 +97,15 @@
             </dd>
         </dl>
     </div>
-    <div id="root"></div>
+    <div id="chart"></div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
+<h1>This is an exciting page in my existing application</h1>
 
+<div id="content" />
 
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
-<script type="text/babel">
-    class Greeting extends React.Component {
-    render() {
-    return (
-    <p>Hello world</p>);
-    }
-    }
-    ReactDOM.render(
-    <Greeting />,
-    document.getElementById('root')
-    );
-</script>
+<script src="~/js/piechart.js"></script>

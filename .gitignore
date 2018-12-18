@@ -73,3 +73,14 @@ _[Ss]cripts
 *.nupkg
 *.ncrunchsolution
 *.dot[Cc]over
+
+
+########
+# node #
+########
+dist/
+dist/**
+*dist/**
+node_modules/*
+.gitignore
+node_modules
