@@ -13,13 +13,6 @@
 <!--list all relatives of the given user-->
 <!--TODO make it so that the relatives can be added from the users details page-->
 <!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
-<h3>Relatives</h3>
-@foreach (var std in ViewData["Relatives"] as IList<Relative>)
-{
-    <li>
-        @std.FName is @Model.FName's @std.Relation
-    </li>
-}
 
 
 <table class="table">
@@ -52,8 +45,8 @@
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                        <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
                 </td>
             </tr>
         }
@@ -72,37 +65,59 @@
 
 <!--TODO make it so that this fades out after a couple seconds and shows who was added-->
 <div class="added" id="added" />
-<div>
-    <h4>Users</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.LName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LName)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-    </dl>
+<h4>Users</h4>
+<hr />
+<div class="box">
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+        </dl>
+    </div>
+    <div id="root"></div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script type="text/babel">
+    class Greeting extends React.Component {
+    render() {
+    return (
+    <p>Hello world</p>);
+    }
+    }
+    ReactDOM.render(
+    <Greeting />,
+    document.getElementById('root')
+    );
+</script>
