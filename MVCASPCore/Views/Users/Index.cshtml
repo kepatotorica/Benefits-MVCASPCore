@@ -1,0 +1,96 @@
+﻿@model X.PagedList.IPagedList<MVCASPCore.Models.Users>
+@using X.PagedList.Mvc;
+@using X.PagedList;
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+@*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
+@*next three lines above are for the pagination, also turns out comments on the line of the model import breaks everything*@
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+
+
+
+@* I don't why I can't set the styling fir <a> links globally in the bootstrap-darkly.css file, I think I am just not expeircend enough *@
+<table class="table">
+    <thead style="background: #0c392e; ">
+        <tr>
+            <th>
+                <h4>@Html.ActionLink("First Name", "Index", new { sortOrder = 1 }, new { @style = "color: White; text-decoration: none" })</h4>
+            </th>
+            <th>
+                <h4>@Html.ActionLink("Last Name", "Index", new { sortOrder = 2 }, new { @style = "color: White; text-decoration: none" })</h4>
+            </th>
+            <th>
+                <h4>@Html.ActionLink("Email", "Index", new { sortOrder = 3 }, new { @style = "color: White; text-decoration: none" })</h4>
+            </th>
+            <th>
+                <h4>@Html.ActionLink("Gender", "Index", new { sortOrder = 4 }, new { @style = "color: White; text-decoration: none" })</h4>
+            </th>
+            <th>
+                <h4 style="color: White;">Controls</h4>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    <a style="text-decoration: none" asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                    <a style="text-decoration: none" asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                    <a style="text-decoration: none" asp-action="Delete" asp-route-id="@item.UId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="#" style="float: right; position: relative;" class="btn btn-primary" data-toggle="popover" data-html="true" data-placement="left" data-content='
+   <form method="POST">
+       <div class="form-inline">
+           <input type="text" class="form-inline" id="Search" name="Search" placeholder="empty will reset results">
+           <button type="submit" value="Search" class="btn btn-primary">
+               <span class="glyphicon glyphicon-search"></span>
+            </button>
+</div>
+   </form>
+'>Search</a>
+<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<!--printing which page we are on, if someone changes the url to a larger number it prints 0, TODO but doesn't change the actual page
+    I haven't found the code for determining the page though, maybe ill fix it later, but it is a low priority-->
+@* the below method call is taking us too our Index controller, and passing in the values of our STORED search and sort as well as the page we have requested *@
+@X.PagedList.Mvc.Core.HtmlHelper.PagedListPager(Html, Model, page => Url.Action("Index", new { page, sortOrder = ViewData["CurrentSort"], currentSearch = ViewData["CurrentSearch"] })) <!--getting this to work took forever-->
+<!--thank you Akexzxcvbnm for your awesome answer: https://github.com/dncuug/X.PagedList/issues/96-->
+@*a data-toggle="modal" href="some.html" data-target="#modal">click me</a>*@
+@* Look into making a popout modal *@
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+
+</script>

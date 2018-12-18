@@ -1,0 +1,108 @@
+﻿@model MVCASPCore.Models.Users
+<head>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+
+<!--list all relatives of the given user-->
+<!--TODO make it so that the relatives can be added from the users details page-->
+<!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
+<h3>Relatives</h3>
+@foreach (var std in ViewData["Relatives"] as IList<Relative>)
+{
+    <li>
+        @std.FName is @Model.FName's @std.Relation
+    </li>
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Relation
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var std in ViewData["Relatives"] as IList<Relative>)
+        {
+            <tr>
+                <td>
+                    @std.FName
+                </td>
+                <td>
+                    @std.LName
+                </td>
+                <td>
+                    @std.Relation
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<!--when a relative has been added inform the user-->
+@*@if (ViewData["Added"] != null)
+    {
+        ViewData["Added"] = null;
+        <script>
+            alert("@ViewData["NameAdded"] has been added as a family member");
+        </script>
+    }*@
+
+<!--TODO make it so that this fades out after a couple seconds and shows who was added-->
+<div class="added" id="added" />
+<div>
+    <h4>Users</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
