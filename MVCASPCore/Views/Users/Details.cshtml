@@ -14,7 +14,7 @@
 <h1>@ViewData["Title"]</h1>
 
 
-<div class="added" id="added" />
+@*<div class="added" id="added" />*@
 
 
 
@@ -48,8 +48,9 @@
                 @Html.DisplayFor(model => model.Email)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@model.UId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@model.UId">Delete</a>*@
+                <a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |
+                <a asp-action="Index">Back to List</a>
             </td>
         </tr>
     </tbody>
@@ -117,12 +118,7 @@ else
 {
     <h1>No Dependents</h1>
 }
-<hr />
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 

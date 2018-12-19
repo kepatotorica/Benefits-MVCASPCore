@@ -41,7 +41,10 @@
 </div>
 
 <div>
+    <a asp-action="Details" asp-route-id="@ViewData["UId"]">Details</a> |
+    <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |
     <a asp-action="Index">Back to List</a>
+
 </div>
 
 @section Scripts {

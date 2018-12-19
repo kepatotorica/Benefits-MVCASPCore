@@ -107,7 +107,7 @@ namespace MVCASPCore.Controllers
             {
                 ViewData["Relatives"] = null;
             }
-
+            ViewData["UId"] = users.UId;
             return View(users);
         }
 
@@ -153,6 +153,7 @@ namespace MVCASPCore.Controllers
             {
                 return NotFound();
             }
+            ViewData["UId"] = id;
             return View(users);
         }
 
@@ -205,7 +206,7 @@ namespace MVCASPCore.Controllers
             {
                 return NotFound();
             }
-
+            ViewData["UId"] = id;
             return View(users);
         }
 
