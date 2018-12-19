@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\Home\react\all.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Scripts\Home\react\all.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -17,7 +27,6 @@
 
   <ItemGroup>
     <None Include="wwwroot\Scripts\dist\Home\react\bundle.js" />
-    <None Include="wwwroot\Scripts\Home\react\Index.js" />
   </ItemGroup>
 
 </Project>
