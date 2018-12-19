@@ -57,12 +57,13 @@
 </table>
 <hr />
 
-
-<div>
-    @*<div id="container"> </div>*@
-<div class="chart-container"><div id="chartContainer2" style="position: relative"></div></div>
-<div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
+<div class="box">
+        <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
+        <div id="container"> </div>
 </div>
+    <div id="chart-div">
+        <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
+    </div>
 
 
 
@@ -139,7 +140,8 @@ else
 
         var config = {
             animationEnabled: true,
-            backgroundColor: "#222222",
+            //backgroundColor: "#242424",
+            backgroundColor: "#212121",
             scaleFontColor: "#000000",
             title: {
                 text: "Yearly @ViewData["title"]",
@@ -166,7 +168,7 @@ else
 
          var config2 = {
             animationEnabled: true,
-            backgroundColor: "#222222",
+            backgroundColor: "#212121",
             scaleFontColor: "#000000",
             title: {
                 text: "Paycheck",
@@ -263,20 +265,20 @@ else
     }
 </script>
 
-@*<script> //for the react chart
-        //const data = [
-        //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-        //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-        //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-        //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-        //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-        //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-        //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
-        //];
+<script> //for the react chart
+        const data = [
+            { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
+            { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
+            { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
+            { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
+            { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
+            { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
+            { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+        ];
     //pearle none
     //sibley 1
     //
-    const data = [];
+    @*const data = [];
 
      var table = document.getElementById("relatives");
     var y  = 500.0;
@@ -314,5 +316,5 @@ else
     obj["name"] = remaining;
     obj["value"] = total;
     data.push(obj);
-    console.log(data)
-    </script>*@
+    console.log(data)*@
+    </script>

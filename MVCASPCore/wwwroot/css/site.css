@@ -37,7 +37,7 @@ body {
 }
 
 .box {
-    height: 300px;
+    /*height: 300px;*/
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -59,9 +59,13 @@ canvas {
     /*border: 1px dotted red;*/
 }
 
+
+
 .chart-container {
     position: relative;
     margin: auto;
     height: 50vh;
     /*width: 80vw;*/
+    /*float: right;*/
 }
+
