@@ -1,4 +1,31 @@
-﻿//const { PieChart, Pie, Sector, Cell } = Recharts;
+﻿//data is in Users/Details.cshtml
+
+const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } = Recharts;
+var React = require('react');
+var SimpleLineChart = require('create-react-class');
+import { render } from 'react-dom';
+
+const SimpleLineChart = () => (
+    <LineChart width={600} height={400} data={data}
+        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+        <XAxis dataKey="name" />
+        <YAxis />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+    </LineChart>
+);
+
+render(
+    <SimpleLineChart />,
+    document.getElementById('container')
+);
+
+
+
+//const { PieChart, Pie, Sector, Cell } = Recharts;
 ////const data = [{ name: 'Group A', value: 400 }, { name: 'Group B', value: 300 },
 ////{ name: 'Group C', value: 300 }, { name: 'Group D', value: 200 }];
 //const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
@@ -32,28 +59,3 @@
 //);
 
 
-
-//data is in Users/Details.cshtml
-
-const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } = Recharts;
-var React = require('react');
-var SimpleLineChart = require('create-react-class');
-import { render } from 'react-dom';
-
-const SimpleLineChart = () => (
-    <LineChart width={600} height={400} data={data}
-        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-        <XAxis dataKey="name" />
-        <YAxis />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-    </LineChart>
-);
-
-render(
-    <SimpleLineChart />,
-    document.getElementById('container')
-);

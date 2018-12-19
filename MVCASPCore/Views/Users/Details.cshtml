@@ -59,7 +59,7 @@
 
 <div class="box">
         <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
-        <div id="container"> </div>
+        <div id="container" style="margin: auto;"> </div>
 </div>
     <div id="chart-div" style="background-color: #222222">
         <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
@@ -146,16 +146,6 @@ else
             title: {
                 text: "Yearly @ViewData["title"]",
             },
-            options: {
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    }
-                }
-            },
             data: [{
                 type: 'doughnut',
                 startAngle: 240,
@@ -173,16 +163,6 @@ else
             title: {
                 text: "Paycheck",
              },
-            options: {
-                layout: {
-                    padding: {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    }
-                }
-            },
             data: [{
                 type: 'doughnut',
                 startAngle: 240,
