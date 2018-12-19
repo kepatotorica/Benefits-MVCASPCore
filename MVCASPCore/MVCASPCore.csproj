@@ -15,4 +15,9 @@
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Scripts\dist\Home\react\bundle.js" />
+    <None Include="wwwroot\Scripts\Home\react\Index.js" />
+  </ItemGroup>
+
 </Project>
