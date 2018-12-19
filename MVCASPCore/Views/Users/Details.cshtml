@@ -46,9 +46,10 @@
             </dd>
         </dl>
     </div>
-    <div id="chartContainer"></div>
     @*<div id="container"> </div>*@
 </div>
+
+<div id="chartContainer"></div>
 
 
 
@@ -113,6 +114,78 @@ else
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
+
+
+<script>
+    //for the chartJS chart
+    window.onload = function () {
+
+          var config = {
+            animationEnabled: true,
+            backgroundColor: "#222222",
+            scaleFontColor: "#000000",
+            title: {
+                text: "@ViewData["title"]",
+            },
+            data: [{
+                type: 'doughnut',
+                startAngle: 240,
+                yValueFormatString: "$#.##",
+                indexLabelFontColor: "white",
+                indexLabel: "{label} {y}",
+                dataPoints: []
+            }]
+        }
+
+        var chart = new CanvasJS.Chart("chartContainer", config);
+
+        var table = document.getElementById("relatives");
+        const dp = [];
+        var y  = 500.0;
+        var first = "@Html.DisplayFor(model => model.FName)";
+        var total = 1000.0;
+        var obj = new Object();
+
+        if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+            y = 0.9 * 500.0;
+        }
+        obj["y"] = y
+        obj["label"] = first;
+        dp.push(obj);
+        total -= y;
+        config.data[0].dataPoints.push(obj) //add the current user to the dataset
+
+        for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
+            var obj = new Object();
+            console.log(row.innerText)
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                if (j == 0) //if first name
+                {
+                    first = col.innerText
+                    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
+                        y = 0.9 * 500.0;
+                    } else {
+                        y = 500.0;
+                    }
+                    total -= y;
+                    obj["y"] = y;
+                    obj["label"] = col.innerText;
+                    config.data[0].dataPoints.push(obj)
+                }
+            }
+        }
+        console.log(obj)
+
+        var obj = new Object();
+        obj["y"] = total;
+        obj["label"] = "Remaining";
+        config.data[0].dataPoints.push(obj)
+        console.log(config.data[0].dataPoints)
+        chart.render();
+
+    }
+</script>
+
 @*<script> //for the react chart
         //const data = [
         //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
@@ -138,7 +211,7 @@ else
     //    y = 0.9 * 500.0;
     //    obj["name"] = first;
     //    obj["value"] = y;
-            
+
     //}
     //data.push(obj);
     //console.log(data);
@@ -166,83 +239,3 @@ else
     data.push(obj);
     console.log(data)
     </script>*@
-
-<script>
-    //for the chartJS chart
-    window.onload = function () {
-
-          var config = {
-            animationEnabled: true,
-            backgroundColor: "#222222",
-            scaleFontColor: "#000000",
-            title: {
-                text: "@ViewData["title"]",
-            },
-            data: [{
-                type: 'doughnut',
-                startAngle: 240,
-                //yValueFormatString: "##0.00\"%\"",
-                indexLabelFontColor: "white",
-                indexLabel: "{label} {y}",
-                dataPoints: []
-            }]
-        }
-
-        var chart = new CanvasJS.Chart("chartContainer", config);
-
-        var table = document.getElementById("relatives");
-        const dp = [];
-        var y  = 500.0;
-        var first = "@Html.DisplayFor(model => model.FName)";
-        var total = 1000.0;
-        var obj = new Object();
-
-        if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
-            y = 0.9 * 500.0;
-
-        }
-        obj["y"] = y
-        obj["label"] = first;
-        dp.push(obj);
-        total -= y;
-        config.data[0].dataPoints.push(obj)
-
-        for (var i = 1, row; row = table.rows[i]; i++) {
-            //iterate through rows
-            //rows would be accessed using the "row" variable assigned in the for loop
-            var obj = new Object();
-            console.log(row.innerText)
-            for (var j = 0, col; col = row.cells[j]; j++) {
-                if (j == 0) //if first name
-                {
-                    first = col.innerText
-                    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
-                        y = 0.9 * 500.0;
-                    } else {
-                        y = 500.0;
-                    }
-                    total -= y;
-                    obj["y"] = y;
-                    obj["label"] = col.innerText;
-                    config.data[0].dataPoints.push(obj)
-                }
-
-                //iterate through columns
-                //columns would be accessed using the "col" variable assigned in the for loop
-            }
-        }
-        console.log(obj)
-
-        var obj = new Object();
-        obj["y"] = total;
-        obj["label"] = "Remaining";
-        config.data[0].dataPoints.push(obj)
-        console.log(config.data[0].dataPoints)
-        chart.render();
-
-    }
-</script>
-
-<script>
-
-</script>

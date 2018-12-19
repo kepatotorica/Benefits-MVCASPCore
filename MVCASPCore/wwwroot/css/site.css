@@ -43,12 +43,13 @@ body {
     flex-wrap: wrap;
 }
 
-/*canvasjs-chart-canvas {
-    position: absolute;
-    cursor: default;
-}
 
-.chartContainter{
+
+/*.canvasjs-chart-canvas {
+    position: relative;
+}*/
+
+/*.chartContainter{
     opacity:0;
 }*/
 .canvasjs-chart-credit {
