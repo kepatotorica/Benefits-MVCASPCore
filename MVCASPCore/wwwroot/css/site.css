@@ -44,14 +44,24 @@ body {
 }
 
 
-
-/*.canvasjs-chart-canvas {
-    position: relative;
-}*/
+canvasjs-chart-canvas {
+    background-color: bisque
+}
 
 /*.chartContainter{
     opacity:0;
 }*/
 .canvasjs-chart-credit {
     display: none;
+}
+
+canvas {
+    /*border: 1px dotted red;*/
+}
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 50vh;
+    /*width: 80vw;*/
 }

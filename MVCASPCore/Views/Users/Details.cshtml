@@ -47,85 +47,131 @@
         </dl>
     </div>
     @*<div id="container"> </div>*@
-<div id="chartContainer" style="position: relative"></div>
 </div>
+<div class="chart-container"><div id="chartContainer2" style="position: relative"></div></div>
+<div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
 
 
 
 
-<!--list all relatives of the given user-->
-<!--TODO make it so that the relatives can be added from the users details page-->
-<!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
+    <!--list all relatives of the given user-->
+    <!--TODO make it so that the relatives can be added from the users details page-->
+    <!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
 
-<br />
-<h2>Relatives</h2>
-@if (ViewData["Relatives"] != null)
-{
-    <table class="table" id="relatives">
-        <thead>
-            <tr>
-                <th>
-                    First Name
-                </th>
-                <th>
-                    Last Name
-                </th>
-                <th>
-                    Relation
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var std in ViewData["Relatives"] as IList<Relative>)
-            {
+    <br />
+    <h2>Relatives</h2>
+    @if (ViewData["Relatives"] != null)
+    {
+        <table class="table" id="relatives">
+            <thead>
                 <tr>
-                    <td>
-                        @std.FName
-                    </td>
-                    <td>
-                        @std.LName
-                    </td>
-                    <td>
-                        @std.Relation
-                    </td>
-                    <td>
-                        @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
-                    </td>
+                    <th>
+                        First Name
+                    </th>
+                    <th>
+                        Last Name
+                    </th>
+                    <th>
+                        Relation
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h1>No Relatives</h1>
-}
+            </thead>
+            <tbody>
+                @foreach (var std in ViewData["Relatives"] as IList<Relative>)
+                {
+                    <tr>
+                        <td>
+                            @std.FName
+                        </td>
+                        <td>
+                            @std.LName
+                        </td>
+                        <td>
+                            @std.Relation
+                        </td>
+                        <td>
+                            @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h1>No Relatives</h1>
+    }
 
-<h1 style="display: none" id="relJSON">@ViewData["Json"]]</h1>
+    <h1 style="display: none" id="relJSON">@ViewData["Json"]]</h1>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
-
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-<script>
+
+
+    <script>
     //for the chartJS chart
+
     window.onload = function () {
+        var table = document.getElementById("relatives");
+        var y  = 500.0;
+        var first = "@Html.DisplayFor(model => model.FName)";
+        var total = 1000.0;
+        var payCheck = 2000.0;
+        var obj = new Object();
+        var checksPerYear = 26;
 
           var config = {
             animationEnabled: true,
             backgroundColor: "#222222",
             scaleFontColor: "#000000",
             title: {
-                text: "@ViewData["title"]",
+                text: "Yearly @ViewData["title"]",
+              },
+              options: {
+                  layout: {
+                      padding: {
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          bottom: 0
+                      }
+                  }
+              },
+            data: [{
+                type: 'doughnut',
+                startAngle: 240,
+                yValueFormatString: "$0.##",
+                indexLabelFontColor: "white",
+                indexLabel: "{label} {y}",
+                dataPoints: []
+            }]
+        }
+
+         var config2 = {
+            animationEnabled: true,
+            backgroundColor: "#222222",
+            scaleFontColor: "#000000",
+            title: {
+                text: "Paycheck",
+             },
+            options: {
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                }
             },
             data: [{
                 type: 'doughnut',
@@ -138,107 +184,133 @@ else
         }
 
         var chart = new CanvasJS.Chart("chartContainer", config);
+        var chart2 = new CanvasJS.Chart("chartContainer2", config2);
 
-        var table = document.getElementById("relatives");
-        const dp = [];
-        var y  = 500.0;
-        var first = "@Html.DisplayFor(model => model.FName)";
-        var total = 1000.0;
-        var obj = new Object();
 
         if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
             y = 0.9 * 500.0;
         }
         obj["y"] = y
         obj["label"] = first;
-        dp.push(obj);
         total -= y;
         config.data[0].dataPoints.push(obj) //add the current user to the dataset
 
         for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
             var obj = new Object();
-            console.log(row.innerText)
             for (var j = 0, col; col = row.cells[j]; j++) {
                 if (j == 0) //if first name
                 {
                     first = col.innerText
                     if (first.charAt(0) == "A" || first.charAt(0) == "a") {
                         y = 0.9 * 500.0;
+                        total -= y;
                     } else {
                         y = 500.0;
+                        total -= y;
                     }
-                    total -= y;
+                    
                     obj["y"] = y;
                     obj["label"] = col.innerText;
                     config.data[0].dataPoints.push(obj)
                 }
             }
         }
-        console.log(obj)
-
         var obj = new Object();
-        obj["y"] = total;
-        obj["label"] = "Remaining";
-        if (total < 0) {
-
-        }
+        obj["y"] = y;
+        obj["label"] = "bar";
+        total -= y;
+        console.log(total);
         config.data[0].dataPoints.push(obj)
-        console.log(config.data[0].dataPoints)
-        chart.render();
 
-    }
-</script>
+        var obj = new Object(); // good reason for encapsulation
 
-@*<script> //for the react chart
-        //const data = [
-        //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-        //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-        //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-        //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-        //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-        //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-        //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
-        //];
-    //pearle none
-    //sibley 1
-    //
-    const data = [];
+        if (total < 0) {
+            total *= -1;
+            total = total / checksPerYear;
+            config.data[0].dataPoints.forEach(func);
+            obj["y"] = payCheck - total;
+            obj["label"] = "Remaining";
+            config2.data[0].dataPoints.push(obj)
 
-     var table = document.getElementById("relatives");
-    var y  = 500.0;
-    var first = "@Html.DisplayFor(model => model.FName)";
-    var total = 1000.0;
-    var obj = new Object();
+            var obj = new Object();
+            obj["y"] = total ;
+            obj["label"] = "Deducted";
+            config2.data[0].dataPoints.push(obj);
 
-    //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
-    //    y = 0.9 * 500.0;
-    //    obj["name"] = first;
-    //    obj["value"] = y;
+        } else {
+            obj["y"] = total;
+            obj["label"] = "Remaining";
+            config.data[0].dataPoints.push(obj)
 
-    //}
-    //data.push(obj);
-    //console.log(data);
-    //total -= y;
-
-    for (var i = 1, row; row = table.rows[i]; i++) {
-        //iterate through rows
-        //rows would be accessed using the "row" variable assigned in the for loop
-        console.log(row.innerText)
-        for (var j = 0, col; col = row.cells[j]; j++) {
-            if (j == 0) //if first name
-            {
-                obj["name"] = col.innerText;
-                obj["value"] = y;
-            }
-
-            //iterate through columns
-            //columns would be accessed using the "col" variable assigned in the for loop
+            var obj = new Object();
+            obj["y"] = payCheck;
+            obj["label"] = "Remaining";
+            config2.data[0].dataPoints.push(obj)
         }
-        data.push(obj);
+
+        chart.render();
+        chart2.render();
+
     }
 
-    obj["name"] = remaining;
-    obj["value"] = total;
-    data.push(obj);
-    console.log(data)
-    </script>*@
+    function func(item, index, arr) {
+        var checksPerYear = 26;
+        //arr[index] = item * document.getElementById("multiplyWith").value;
+        //item["y"] = item["y"] / checksPerYear;
+        console.log(item)
+    }
+    </script>
+
+    @*<script> //for the react chart
+            //const data = [
+            //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
+            //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
+            //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
+            //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
+            //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
+            //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
+            //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+            //];
+        //pearle none
+        //sibley 1
+        //
+        const data = [];
+
+         var table = document.getElementById("relatives");
+        var y  = 500.0;
+        var first = "@Html.DisplayFor(model => model.FName)";
+        var total = 1000.0;
+        var obj = new Object();
+
+        //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+        //    y = 0.9 * 500.0;
+        //    obj["name"] = first;
+        //    obj["value"] = y;
+
+        //}
+        //data.push(obj);
+        //console.log(data);
+        //total -= y;
+
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+            console.log(row.innerText)
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                if (j == 0) //if first name
+                {
+                    obj["name"] = col.innerText;
+                    obj["value"] = y;
+                }
+
+                //iterate through columns
+                //columns would be accessed using the "col" variable assigned in the for loop
+            }
+            data.push(obj);
+        }
+
+        obj["name"] = remaining;
+        obj["value"] = total;
+        data.push(obj);
+        console.log(data)
+        </script>*@
