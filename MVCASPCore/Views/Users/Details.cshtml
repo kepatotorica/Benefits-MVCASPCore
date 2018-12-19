@@ -18,7 +18,7 @@
 
 
 
-<h4>Users</h4>
+<h4>User</h4>
 <hr />
 
 <table class="table">
@@ -48,8 +48,8 @@
                 @Html.DisplayFor(model => model.Email)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                @*<a asp-action="Edit" asp-route-id="@model.UId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@model.UId">Delete</a>*@
             </td>
         </tr>
     </tbody>
@@ -227,15 +227,9 @@ else
                 }
             }
         }
-        var obj = new Object();
-        obj["y"] = y;
-        obj["label"] = "bar";
-        total -= y;
-        console.log(total);
-        config.data[0].dataPoints.push(obj)
+
 
         var obj = new Object(); // good reason for encapsulation
-
         if (total < 0) {
             total *= -1;
             total = total / checksPerYear;
