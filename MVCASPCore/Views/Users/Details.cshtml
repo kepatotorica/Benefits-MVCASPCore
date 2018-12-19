@@ -1,7 +1,10 @@
 ﻿@model MVCASPCore.Models.Users
 <head>
     <script src="jquery-3.3.1.min.js"></script>
-    <script>"~/js/pieChart.js"</script>
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+    <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
 </head>
 
 @{
@@ -97,15 +100,41 @@
             </dd>
         </dl>
     </div>
-    <div id="app"></div>
+    @*<div id="chartContainer"></div>*@
+        <div id="app"></div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
-<h1>This is an exciting page in my existing application</h1>
 
-<div id="content" />
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-<script src="~/js/piechart.js"></script>
+
+<script>
+    window.onload = function () {
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Benefits"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 240,
+                yValueFormatString: "##0.00\"%\"",
+                indexLabel: "{label} {y}",
+                dataPoints: [
+                    { y: 79.45, label: "Google" },
+                    { y: 7.31, label: "Bing" },
+                    { y: 7.06, label: "Baidu" },
+                    { y: 4.91, label: "Yahoo" },
+                    { y: 1.26, label: "Others" }
+                ]
+            }]
+        });
+        chart.render();
+
+    }
+</script>
