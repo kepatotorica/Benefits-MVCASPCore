@@ -47,9 +47,9 @@
         </dl>
     </div>
     @*<div id="container"> </div>*@
+<div id="chartContainer" style="position: relative"></div>
 </div>
 
-<div id="chartContainer"></div>
 
 
 
@@ -130,7 +130,7 @@ else
             data: [{
                 type: 'doughnut',
                 startAngle: 240,
-                yValueFormatString: "$#.##",
+                yValueFormatString: "$0.##",
                 indexLabelFontColor: "white",
                 indexLabel: "{label} {y}",
                 dataPoints: []
@@ -179,6 +179,9 @@ else
         var obj = new Object();
         obj["y"] = total;
         obj["label"] = "Remaining";
+        if (total < 0) {
+
+        }
         config.data[0].dataPoints.push(obj)
         console.log(config.data[0].dataPoints)
         chart.render();
