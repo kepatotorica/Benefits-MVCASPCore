@@ -75,25 +75,25 @@
     <div>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.FName)
+                First Name:
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.FName)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.LName)
+                Last Name:
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.LName)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Email)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Gender)
+                Gender
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Gender)
@@ -101,7 +101,6 @@
         </dl>
     </div>
     @*<div id="chartContainer"></div>*@
-    @*<div id="app"></div>*@
     <div id="container">
         <!-- This element's contents will be replaced with your component. -->
     </div>
@@ -116,6 +115,16 @@
 
 
 <script>
+    const data = [
+        { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
+        { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
+        { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
+        { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
+        { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
+        { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
+        { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+    ];
+
     //window.onload = function () {
 
     //    var chart = new CanvasJS.Chart("chartContainer", {
