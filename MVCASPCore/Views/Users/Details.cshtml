@@ -8,66 +8,12 @@
 </head>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Benefits";
 }
 
-<h1>Details</h1>
+<h1>@ViewData["Title"]</h1>
 
 
-<!--list all relatives of the given user-->
-<!--TODO make it so that the relatives can be added from the users details page-->
-<!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                Relation
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var std in ViewData["Relatives"] as IList<Relative>)
-        {
-            <tr>
-                <td>
-                    @std.FName
-                </td>
-                <td>
-                    @std.LName
-                </td>
-                <td>
-                    @std.Relation
-                </td>
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-<!--when a relative has been added inform the user-->
-@*@if (ViewData["Added"] != null)
-    {
-        ViewData["Added"] = null;
-        <script>
-            alert("@ViewData["NameAdded"] has been added as a family member");
-        </script>
-    }*@
-
-<!--TODO make it so that this fades out after a couple seconds and shows who was added-->
 <div class="added" id="added" />
 <h4>Users</h4>
 <hr />
@@ -103,54 +49,106 @@
     <div id="chartContainer"></div>
     @*<div id="container"> </div>*@
 </div>
+
+
+
+<!--list all relatives of the given user-->
+<!--TODO make it so that the relatives can be added from the users details page-->
+<!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
+
+<br />
+<h2>Relatives</h2>
+@if (ViewData["Relatives"] != null)
+{
+    <table class="table" id="relatives">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Relation
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var std in ViewData["Relatives"] as IList<Relative>)
+            {
+                <tr>
+                    <td>
+                        @std.FName
+                    </td>
+                    <td>
+                        @std.LName
+                    </td>
+                    <td>
+                        @std.Relation
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @foreach (var std in ViewData["Relatives"] as IList<Relative>)
+    {
+    <h1 style="display: none" id="relJSON">
+        @if(@std.FName.StartsWith("A"))
+        {
+        <a>{ y: 100, label: @std.FName, Last: @std.LName, Relation @std.Relation },</a>
+        }
+        else
+        {
+            <a>{ y: 150, label: @std.FName, Last: @std.LName, Relation @std.Relation },</a>
+        }
+    </h1>
+
+    <h1>@ViewData["JSON"]</h1>
+
+    };
+}
+else
+{
+<h1>No Relatives</h1>
+}
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
-
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
-<script>
-    //const data = [
-    //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-    //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-    //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-    //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-    //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-    //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-    //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
-    //];
-
-    //window.onload = function () {
-
-    //    var chart = new CanvasJS.Chart("chartContainer", {
-    //        animationEnabled: true,
-    //        title: {
-    //            text: "Benefits"
-    //        },
-    //        data: [{
-    //            type: "pie",
-    //            startAngle: 240,
-    //            yValueFormatString: "##0.00\"%\"",
-    //            indexLabel: "{label} {y}",
-    //            dataPoints: [
-    //                { y: 79.45, label: "Google" },
-    //                { y: 7.31, label: "Bing" },
-    //                { y: 7.06, label: "Baidu" },
-    //                { y: 4.91, label: "Yahoo" },
-    //                { y: 1.26, label: "Others" }
-    //            ]
-    //        }]
-    //    });
-    //    chart.render();
-
-    //}
-</script>
+@*<script> //for the react chart
+        //const data = [
+        //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
+        //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
+        //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
+        //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
+        //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
+        //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
+        //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+        //];
+    </script>*@
 
 <script>
-     window.onload = function () {
+    //for the chartJS chart
+    window.onload = function () {
+        @*var str = @Html.Raw(Json.Encode(ViewData["Relatives"]));*@
+        var str = document.getElementById("relJSON").innerHTML;
+        str = "[" + str.slice(0, str.length - 1) + "];";
+
+
+        console.log(str)
 
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,

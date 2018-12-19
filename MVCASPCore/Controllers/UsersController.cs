@@ -96,12 +96,33 @@ namespace MVCASPCore.Controllers
 
             var relatives = from s in _context.Relative.Where(rel => rel.U.UId == id)//make a list of relatives model instances that point to this user
                         select s;
-
+            ViewData["Json"] = "";
+            var str = "";
+            var mult = 500.0;
+            var total = 1000.0;
+            if (users.FName.StartsWith("A") || users.FName.StartsWith("a"))
+            {
+                mult = 0.9 * 500.0;
+            }
+            str += "[{ y: " + mult + ", First: " + users.FName + "},";
+            total -= mult;
             foreach (Relative rel in relatives)//this for each loop is used to add each relative to our temporary list that will be passed to the view
             {
                 temp.Add(rel); // add each relative
+                mult = 500.0;
+                if(rel.FName.StartsWith("A") || rel.FName.StartsWith("a"))
+                {
+                    mult = 0.9 * 500.0;
+                }
+                str += "{ y: " + mult + ", First: " + rel.FName + "},";
+                total -= mult;
             }
+            ViewData["Json"] = str;
             ViewData["Relatives"] = temp;
+            if(temp.Count == 0)
+            {
+                ViewData["Relatives"] = null;
+            }
 
             return View(users);
         }
