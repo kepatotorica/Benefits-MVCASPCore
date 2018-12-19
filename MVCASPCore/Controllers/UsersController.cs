@@ -104,7 +104,7 @@ namespace MVCASPCore.Controllers
             {
                 mult = 0.9 * 500.0;
             }
-            str += "[{ y: " + mult + ", First: " + users.FName + "},";
+            str += "[{ y: " + mult + ", First: \"" + users.FName + "\"},";
             total -= mult;
             foreach (Relative rel in relatives)//this for each loop is used to add each relative to our temporary list that will be passed to the view
             {
@@ -114,7 +114,7 @@ namespace MVCASPCore.Controllers
                 {
                     mult = 0.9 * 500.0;
                 }
-                str += "{ y: " + mult + ", First: " + rel.FName + "},";
+                str += "{ y: " + mult + ", First: \"" + rel.FName + "\"},";
                 total -= mult;
             }
             ViewData["Json"] = str;

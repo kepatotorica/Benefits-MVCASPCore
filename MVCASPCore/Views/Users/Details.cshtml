@@ -97,28 +97,13 @@
             }
         </tbody>
     </table>
-
-    @foreach (var std in ViewData["Relatives"] as IList<Relative>)
-    {
-    <h1 style="display: none" id="relJSON">
-        @if(@std.FName.StartsWith("A"))
-        {
-        <a>{ y: 100, label: @std.FName, Last: @std.LName, Relation @std.Relation },</a>
-        }
-        else
-        {
-            <a>{ y: 150, label: @std.FName, Last: @std.LName, Relation @std.Relation },</a>
-        }
-    </h1>
-
-    <h1>@ViewData["JSON"]</h1>
-
-    };
 }
 else
 {
-<h1>No Relatives</h1>
+    <h1>No Relatives</h1>
 }
+
+<h1 style="display: none" id="relJSON">@ViewData["Json"]]</h1>
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
@@ -144,18 +129,21 @@ else
     //for the chartJS chart
     window.onload = function () {
         @*var str = @Html.Raw(Json.Encode(ViewData["Relatives"]));*@
-        var str = document.getElementById("relJSON").innerHTML;
-        str = "[" + str.slice(0, str.length - 1) + "];";
+
+        //var dp = JSON.parse(document.getElementById("relJSON").innerHTML);
+        var dp = "";
+        dp = replaceAll(replaceAll("@ViewData["Json"]]", "\"", ""), "&quot;", "\"");
+        //dp = replaceAll(dp,"&quot;","\"");
+        console.log(dp)
 
 
-        console.log(str)
 
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             backgroundColor: "#222222",
             scaleFontColor: "#000000",
             title: {
-                text: "Benefits",
+                text: "@ViewData["title"]",
             },
             data: [{
                 type: 'doughnut',
@@ -174,5 +162,11 @@ else
         });
         chart.render();
 
+    }
+</script>
+
+<script>
+    function replaceAll(str, find, replace) {
+        return str.replace(new RegExp(find, 'g'), replace);
     }
 </script>
