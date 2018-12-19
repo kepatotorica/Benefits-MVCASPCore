@@ -123,22 +123,105 @@ else
         //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
         //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
         //];
+    //pearle none
+    //sibley 1
+    //
+    const data = [];
+
+     var table = document.getElementById("relatives");
+    var y  = 500.0;
+    var first = "@Html.DisplayFor(model => model.FName)";
+    var total = 1000.0;
+    var obj = new Object();
+
+    //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+    //    y = 0.9 * 500.0;
+    //    obj["name"] = first;
+    //    obj["value"] = y;
+            
+    //}
+    //data.push(obj);
+    //console.log(data);
+    //total -= y;
+
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
+        console.log(row.innerText)
+        for (var j = 0, col; col = row.cells[j]; j++) {
+            if (j == 0) //if first name
+            {
+                obj["name"] = col.innerText;
+                obj["value"] = y;
+            }
+
+            //iterate through columns
+            //columns would be accessed using the "col" variable assigned in the for loop
+        }
+        data.push(obj);
+    }
+
+    obj["name"] = remaining;
+    obj["value"] = total;
+    data.push(obj);
+    console.log(data)
     </script>*@
 
 <script>
     //for the chartJS chart
     window.onload = function () {
-        @*var str = @Html.Raw(Json.Encode(ViewData["Relatives"]));*@
 
-        //var dp = JSON.parse(document.getElementById("relJSON").innerHTML);
-        var dp = "";
-        dp = replaceAll(replaceAll("@ViewData["Json"]]", "\"", ""), "&quot;", "\"");
-        //dp = replaceAll(dp,"&quot;","\"");
-        console.log(dp)
+        var table = document.getElementById("relatives");
+        const dp = [];
+        var y  = 500.0;
+        var first = "@Html.DisplayFor(model => model.FName)";
+        var total = 1000.0;
+        var obj = new Object();
+
+        if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+            y = 0.9 * 500.0;
+            obj["y"] = y;
+            obj[""]
+        }
+        dp.push(obj);
+        total -= y;
+
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+            console.log(row.innerText)
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                if (j == 0) //if first name
+                {
+                    obj["y"] = y;
+                    obj["label"] = col.innerText;
+                }
+
+                //iterate through columns
+                //columns would be accessed using the "col" variable assigned in the for loop
+            }
+            dp.push(obj);
+        }
+        console.log(obj)
+        //dataPoints: [
+        //    { y: 79.45, label: "Google" },
+        //    { y: 7.31, label: "Bing" },
+        //    { y: 7.06, label: "Baidu" },
+        //    { y: 4.91, label: "Yahoo" },
+        //    { y: 1.26, label: "Others" }
+        //]
+        //console.log(dataPoints)
+
+        //let table = document.getElementById("relatives");
+        //for (let row of table.rows) {
+        //    for (let cell of row.cells) {
+        //        let value = cell.innerText; // or cell.innerHtml (you can also set value to innerText/Html)
+        //        console.log(value);
+        //    }
+        //}
 
 
-
-        var chart = new CanvasJS.Chart("chartContainer", {
+        var config = {
             animationEnabled: true,
             backgroundColor: "#222222",
             scaleFontColor: "#000000",
@@ -152,21 +235,36 @@ else
                 indexLabelFontColor: "white",
                 indexLabel: "{label} {y}",
                 dataPoints: [
-                    { y: 79.45, label: "Google" },
+                    { y: 49.45, label: "Google" },
                     { y: 7.31, label: "Bing" },
                     { y: 7.06, label: "Baidu" },
                     { y: 4.91, label: "Yahoo" },
                     { y: 1.26, label: "Others" }
                 ]
             }]
-        });
+        }
+        var chart = new CanvasJS.Chart("chartContainer", config);
+        config.data[0].dataPoints.push(obj)
+        console.log(config.data[0].dataPoints)
         chart.render();
+        //config.data.datasets[0].data[0] = 10;
 
+        //chart.update();
+
+        //chart.data.dataPoints.push(obj);
+        //chart.update();
+
+
+        //dataPoints: [
+        //    { y: 79.45, label: "Google" },
+        //    { y: 7.31, label: "Bing" },
+        //    { y: 7.06, label: "Baidu" },
+        //    { y: 4.91, label: "Yahoo" },
+        //    { y: 1.26, label: "Others" }
+        //]
     }
 </script>
 
 <script>
-    function replaceAll(str, find, replace) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    }
+
 </script>
