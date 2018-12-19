@@ -15,109 +15,121 @@
 
 
 <div class="added" id="added" />
+
+
+
 <h4>Users</h4>
 <hr />
-<div class="box">
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                First Name:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FName)
-            </dd>
-            <dt>
-                Last Name:
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LName)
-            </dd>
-            <dt>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
                 Email
-            </dt>
-            <dd>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.LName)
+            </td>
+            <td>
                 @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt>
-                Gender
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Gender)
-            </dd>
-        </dl>
-    </div>
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr />
+
+
+<div>
     @*<div id="container"> </div>*@
-</div>
 <div class="chart-container"><div id="chartContainer2" style="position: relative"></div></div>
 <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
+</div>
 
 
 
 
-    <!--list all relatives of the given user-->
-    <!--TODO make it so that the relatives can be added from the users details page-->
-    <!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
+<!--list all relatives of the given user-->
+<!--TODO make it so that the relatives can be added from the users details page-->
+<!--TODO maybe make this it's own page? it could route back details after you click a link for siblings or something-->
 
-    <br />
-    <h2>Relatives</h2>
-    @if (ViewData["Relatives"] != null)
-    {
-        <table class="table" id="relatives">
-            <thead>
+<br />
+<h4>Dependents</h4>
+<hr />
+@if (ViewData["Relatives"] != null)
+{
+    <table class="table" id="relatives">
+        <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th>
+                    Relation
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var std in ViewData["Relatives"] as IList<Relative>)
+            {
                 <tr>
-                    <th>
-                        First Name
-                    </th>
-                    <th>
-                        Last Name
-                    </th>
-                    <th>
-                        Relation
-                    </th>
-                    <th></th>
+                    <td>
+                        @std.FName
+                    </td>
+                    <td>
+                        @std.LName
+                    </td>
+                    <td>
+                        @std.Relation
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var std in ViewData["Relatives"] as IList<Relative>)
-                {
-                    <tr>
-                        <td>
-                            @std.FName
-                        </td>
-                        <td>
-                            @std.LName
-                        </td>
-                        <td>
-                            @std.Relation
-                        </td>
-                        <td>
-                            @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <h1>No Relatives</h1>
-    }
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>No Dependents</h1>
+}
+<hr />
 
-    <h1 style="display: none" id="relJSON">@ViewData["Json"]]</h1>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
 
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model.UId">Edit</a> |
-        <a asp-action="Index">Back to List</a>
-    </div>
-
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 
 
 
-    <script>
+<script>
     //for the chartJS chart
 
     window.onload = function () {
@@ -129,23 +141,23 @@
         var obj = new Object();
         var checksPerYear = 26;
 
-          var config = {
+        var config = {
             animationEnabled: true,
             backgroundColor: "#222222",
             scaleFontColor: "#000000",
             title: {
                 text: "Yearly @ViewData["title"]",
-              },
-              options: {
-                  layout: {
-                      padding: {
-                          left: 0,
-                          right: 0,
-                          top: 0,
-                          bottom: 0
-                      }
-                  }
-              },
+            },
+            options: {
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                }
+            },
             data: [{
                 type: 'doughnut',
                 startAngle: 240,
@@ -208,7 +220,7 @@
                         y = 500.0;
                         total -= y;
                     }
-                    
+
                     obj["y"] = y;
                     obj["label"] = col.innerText;
                     config.data[0].dataPoints.push(obj)
@@ -259,58 +271,58 @@
         //item["y"] = item["y"] / checksPerYear;
         console.log(item)
     }
-    </script>
+</script>
 
-    @*<script> //for the react chart
-            //const data = [
-            //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-            //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-            //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-            //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-            //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-            //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
-            //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
-            //];
-        //pearle none
-        //sibley 1
-        //
-        const data = [];
+@*<script> //for the react chart
+        //const data = [
+        //    { name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
+        //    { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
+        //    { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
+        //    { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
+        //    { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
+        //    { name: 'Page F', uv: 2390, pv: 3800, amt: 2500 },
+        //    { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 },
+        //];
+    //pearle none
+    //sibley 1
+    //
+    const data = [];
 
-         var table = document.getElementById("relatives");
-        var y  = 500.0;
-        var first = "@Html.DisplayFor(model => model.FName)";
-        var total = 1000.0;
-        var obj = new Object();
+     var table = document.getElementById("relatives");
+    var y  = 500.0;
+    var first = "@Html.DisplayFor(model => model.FName)";
+    var total = 1000.0;
+    var obj = new Object();
 
-        //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
-        //    y = 0.9 * 500.0;
-        //    obj["name"] = first;
-        //    obj["value"] = y;
+    //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+    //    y = 0.9 * 500.0;
+    //    obj["name"] = first;
+    //    obj["value"] = y;
 
-        //}
-        //data.push(obj);
-        //console.log(data);
-        //total -= y;
+    //}
+    //data.push(obj);
+    //console.log(data);
+    //total -= y;
 
-        for (var i = 1, row; row = table.rows[i]; i++) {
-            //iterate through rows
-            //rows would be accessed using the "row" variable assigned in the for loop
-            console.log(row.innerText)
-            for (var j = 0, col; col = row.cells[j]; j++) {
-                if (j == 0) //if first name
-                {
-                    obj["name"] = col.innerText;
-                    obj["value"] = y;
-                }
-
-                //iterate through columns
-                //columns would be accessed using the "col" variable assigned in the for loop
+    for (var i = 1, row; row = table.rows[i]; i++) {
+        //iterate through rows
+        //rows would be accessed using the "row" variable assigned in the for loop
+        console.log(row.innerText)
+        for (var j = 0, col; col = row.cells[j]; j++) {
+            if (j == 0) //if first name
+            {
+                obj["name"] = col.innerText;
+                obj["value"] = y;
             }
-            data.push(obj);
-        }
 
-        obj["name"] = remaining;
-        obj["value"] = total;
+            //iterate through columns
+            //columns would be accessed using the "col" variable assigned in the for loop
+        }
         data.push(obj);
-        console.log(data)
-        </script>*@
+    }
+
+    obj["name"] = remaining;
+    obj["value"] = total;
+    data.push(obj);
+    console.log(data)
+    </script>*@
