@@ -122,15 +122,8 @@ namespace MVCASPCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UId,FName,LName,Email,Gender")] Users users)
+        public async Task<IActionResult> Create([Bind("FName,LName,Email,Gender")] Users users)
         {
-            //TODO for some reason I am trying to submit on UId over a key that already exists.
-
-            //this is the stupidest way to do this, and it must be soooooo slow cause you have to query up until you find a free space
-            //while (_context.Users.Where(user => user.UId == users.UId) != null) //check to see if there is a user that already has this id
-            //{
-            //    users.UId++;
-            //}
             if (ModelState.IsValid)
             {
                 _context.Add(users);
