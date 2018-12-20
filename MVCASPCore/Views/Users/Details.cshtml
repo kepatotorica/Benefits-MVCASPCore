@@ -135,30 +135,29 @@ else
         y = 0.9 * 500.0;
     }
     total -= y;
-
-    for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
-        var obj = new Object();
-        for (var j = 0, col; col = row.cells[j]; j++){
-            if (j == 0) {//if first name
-                first = col.innerText
-                if (first.charAt(0) == "A" || first.charAt(0) == "a") {
-                    y = 0.9 * 500.0;
-                    total -= y;
-                } else {
-                    y = 500.0;
-                    total -= y;
+    if (table != null) {
+        for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
+            var obj = new Object();
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                if (j == 0) {//if first name
+                    first = col.innerText
+                    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
+                        y = 0.9 * 500.0;
+                        total -= y;
+                    } else {
+                        y = 500.0;
+                        total -= y;
+                    }
                 }
             }
         }
     }
-    total -= y;
-    total -= y;
-    total -= y;
-    total -= y;
-    total -= y;
-    const data = [
-        { name: 'Per Paycheck', Deductions: -1*(total/26.0), Paycheck: 2000, Benefits: total/26.0 },
-    ];
+    const data = [];
+    if (total < 0) {
+        data.push({ name: 'Per Paycheck', Deductions: -1*(total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
+    } else {
+        data.push({ name: 'Per Paycheck', Deductions: 0, Paycheck: 2000, Benefits: total / 26.0 });
+    }
 
     window.onload = function () {
         var table = document.getElementById("relatives");
@@ -205,7 +204,6 @@ else
 
         var chart = new CanvasJS.Chart("chartContainer", config);
         var chart2 = new CanvasJS.Chart("chartContainer2", config2);
-        data.push({ name: 'Page B', paycheck: 30000, benefits: 1398 });
 
         if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
             y = 0.9 * 500.0;
@@ -214,24 +212,25 @@ else
         obj["label"] = first;
         total -= y;
         config.data[0].dataPoints.push(obj) //add the current user to the dataset
+        if (table != null) {
+            for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
+                var obj = new Object();
+                for (var j = 0, col; col = row.cells[j]; j++) {
+                    if (j == 0) //if first name
+                    {
+                        first = col.innerText
+                        if (first.charAt(0) == "A" || first.charAt(0) == "a") {
+                            y = 0.9 * 500.0;
+                            total -= y;
+                        } else {
+                            y = 500.0;
+                            total -= y;
+                        }
 
-        for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
-            var obj = new Object();
-            for (var j = 0, col; col = row.cells[j]; j++) {
-                if (j == 0) //if first name
-                {
-                    first = col.innerText
-                    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
-                        y = 0.9 * 500.0;
-                        total -= y;
-                    } else {
-                        y = 500.0;
-                        total -= y;
+                        obj["y"] = y;
+                        obj["label"] = col.innerText;
+                        config.data[0].dataPoints.push(obj)
                     }
-
-                    obj["y"] = y;
-                    obj["label"] = col.innerText;
-                    config.data[0].dataPoints.push(obj)
                 }
             }
         }
@@ -274,59 +273,3 @@ else
         console.log(item)
     }
 </script>
-
-<script> //for the react chart
-        //const data = [
-        //    { name: 'Page A', paycheck: 2000, benefits: 2400 },
-        //    { name: 'Page B', paycheck: 3000, benefits: 1398 },
-        //    { name: 'Page C', paycheck: 2000, benefits: 9800 },
-        //    { name: 'Page D', paycheck: 2780, benefits: 3908 },
-        //    { name: 'Page E', paycheck: 1890, benefits: 4800 },
-        //    { name: 'Page F', paycheck: 2390, benefits: 3800 },
-        //    { name: 'Page G', paycheck: 3490, benefits: 4300 },
-        //];
-
-    //data.push({ name: 'Page B', paycheck: 30000, benefits: 1398 })
-    //pearle none
-    //sibley 1
-    //
-    @*const data = [];
-
-     var table = document.getElementById("relatives");
-    var y  = 500.0;
-    var first = "@Html.DisplayFor(model => model.FName)";
-    var total = 1000.0;
-    var obj = new Object();
-
-    //if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
-    //    y = 0.9 * 500.0;
-    //    obj["name"] = first;
-    //    obj["value"] = y;
-
-    //}
-    //data.push(obj);
-    //console.log(data);
-    //total -= y;
-
-    for (var i = 1, row; row = table.rows[i]; i++) {
-        //iterate through rows
-        //rows would be accessed using the "row" variable assigned in the for loop
-        console.log(row.innerText)
-        for (var j = 0, col; col = row.cells[j]; j++) {
-            if (j == 0) //if first name
-            {
-                obj["name"] = col.innerText;
-                obj["value"] = y;
-            }
-
-            //iterate through columns
-            //columns would be accessed using the "col" variable assigned in the for loop
-        }
-        data.push(obj);
-    }
-
-    obj["name"] = remaining;
-    obj["value"] = total;
-    data.push(obj);
-    console.log(data)*@
-    </script>
