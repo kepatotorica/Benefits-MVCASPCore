@@ -47,7 +47,6 @@
                 @Html.DisplayFor(model => model.Email)
             </td>
             <td>
-                <h1>@ViewData["UId"]</h1>
                 <a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |
                 <a asp-action="Index">Back to List</a>
@@ -121,7 +120,7 @@ else
 }
 
     @*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
-    <li><a asp-area="" asp-controller="Relatives" asp-action="Create">Contact</a></li>
+    <li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Contact</a></li>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 

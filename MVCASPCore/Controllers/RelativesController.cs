@@ -45,11 +45,20 @@ namespace MVCASPCore.Controllers
         }
 
         // GET: Relatives/Create
-        public IActionResult Create()
+        //public IActionResult Create()
+        //{
+        //    ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
+        //    return View();
+        //}
+
+        // GET: Users/Create
+        public IActionResult Create(int? id)
         {
             ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
+            ViewData["aId"] = id;
             return View();
         }
+
 
         // POST: Relatives/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
