@@ -33,7 +33,6 @@
             <th>
                 Email
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -95,22 +94,22 @@
         <tbody>
             @foreach (var std in ViewData["Relatives"] as IList<Relative>)
             {
-                <tr>
-                    <td>
-                        @std.FName
-                    </td>
-                    <td>
-                        @std.LName
-                    </td>
-                    <td>
-                        @std.Relation
-                    </td>
-                    <td>
-                        @*<a asp-action="Edit" asp-route-id="@item.UId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.UId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.UId">Delete</a>*@
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @std.FName
+                </td>
+                <td>
+                    @std.LName
+                </td>
+                <td>
+                    @std.Relation
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |
+                    <a asp-action="Index">Back to List</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -119,6 +118,9 @@ else
 {
     <h1>No Dependents</h1>
 }
+
+    @*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
+    <li><a asp-area="" asp-controller="Relatives" asp-action="Create">Contact</a></li>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
@@ -230,6 +232,7 @@ else
                         obj["y"] = y;
                         obj["label"] = col.innerText;
                         config.data[0].dataPoints.push(obj)
+                        //config.data[0].dataPoints.push({ y: y, label: col.innerText)
                     }
                 }
             }
