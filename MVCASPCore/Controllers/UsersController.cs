@@ -127,10 +127,10 @@ namespace MVCASPCore.Controllers
             //TODO for some reason I am trying to submit on UId over a key that already exists.
 
             //this is the stupidest way to do this, and it must be soooooo slow cause you have to query up until you find a free space
-            while (_context.Users.Where(user => user.UId == users.UId) != null) //check to see if there is a user that already has this id
-            {
-                users.UId++;
-            }
+            //while (_context.Users.Where(user => user.UId == users.UId) != null) //check to see if there is a user that already has this id
+            //{
+            //    users.UId++;
+            //}
             if (ModelState.IsValid)
             {
                 _context.Add(users);
