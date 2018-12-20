@@ -29,8 +29,8 @@
                 <span asp-validation-for="Relation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UId" class="control-label"></label>
-                <select asp-for="UId" class ="form-control" asp-items="ViewBag.UId"></select>
+                <label asp-for="UId" class="control-label" style="display: none"></label>
+                <input asp-for="UId" class="form-control" value="@ViewData["aId"]" style="display: none" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -40,7 +40,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <li><a asp-area="" asp-controller="Users" asp-action="Details" asp-route-id="@ViewData["aId"]">Back</a></li>
 </div>
 
 @section Scripts {

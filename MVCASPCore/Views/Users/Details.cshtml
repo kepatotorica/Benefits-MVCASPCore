@@ -74,6 +74,7 @@
 <br />
 <h4>Dependents</h4>
 <hr />
+    <li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Add new</a></li>
 @if (ViewData["Relatives"] != null)
 {
     <table class="table" id="relatives">
@@ -120,7 +121,6 @@ else
 }
 
     @*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
-    <li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Contact</a></li>
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
