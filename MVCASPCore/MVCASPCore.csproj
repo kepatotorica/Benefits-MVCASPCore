@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Relatives\UserRoute.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Scripts\Home\react\all.js" />
   </ItemGroup>
 
@@ -27,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Relatives\UserRoute.cshtml" />
     <None Include="wwwroot\Scripts\dist\Home\react\bundle.js" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCASPCore.Models;
+//using static MVCASPCore.Controllers.UsersController;
 
 namespace MVCASPCore.Controllers
 {
@@ -71,9 +72,10 @@ namespace MVCASPCore.Controllers
             {
                 _context.Add(relative);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users", new { id = relative.UId });
             }
             ViewData["UId"] = new SelectList(_context.Users, "UId", "UId", relative.UId);
+            Console.WriteLine(ViewData["UId"]);
             return View(relative);
         }
 
