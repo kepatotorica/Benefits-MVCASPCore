@@ -25,7 +25,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="Relation" class="control-label"></label>
-                <input asp-for="Relation" class="form-control" />
+                <select asp-for="Relation" class="form-control" />
+                    <option value="1" selected="selected"> Son </option>
+                    <option value="2"> Daughter </option>
+                    <option value="3"> Spouse </option>
+                    <option value="4"> Parent </option>
+                    <option value="5"> Aunt </option>
+                    <option value="6"> Uncle </option>
+                    <option value="7"> Grandma </option>
+                    <option value="8"> Grandpa </option>
+                    <option value="9"> Brother </option>
+                    <option value="10"> Sister </option>
                 <span asp-validation-for="Relation" class="text-danger"></span>
             </div>
             <div class="form-group">

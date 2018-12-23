@@ -128,7 +128,8 @@ namespace MVCASPCore.Controllers
             {
                 _context.Add(users);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users", new { id = users.UId });
             }
             return View(users);
         }
@@ -180,7 +181,8 @@ namespace MVCASPCore.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users", new { id = users.UId });
             }
             return View(users);
         }

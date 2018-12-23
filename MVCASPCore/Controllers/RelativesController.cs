@@ -126,7 +126,8 @@ namespace MVCASPCore.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Users", new { id = relative.UId });
             }
             ViewData["UId"] = new SelectList(_context.Users, "UId", "UId", relative.UId);
             return View(relative);
@@ -159,7 +160,8 @@ namespace MVCASPCore.Controllers
             var relative = await _context.Relative.FindAsync(id);
             _context.Relative.Remove(relative);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Users", new { id = relative.UId });
         }
 
         private bool RelativeExists(int id)
