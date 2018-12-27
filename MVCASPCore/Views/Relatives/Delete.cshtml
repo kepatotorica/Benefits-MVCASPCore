@@ -39,7 +39,11 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="RelId" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <h4>
+            Deletion of @Html.DisplayFor(model => model.FName) @Html.DisplayFor(model => model.LName) will be permenant,
+            make sure they are leaving the company.
+        </h4>
+        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this dependant? It will be permenant.');" class="btn btn-default" /> |
+        @*<a asp-action="Index">Back to List</a>*@
     </form>
 </div>
