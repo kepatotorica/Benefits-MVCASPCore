@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Scripts\Home\react\all.js" />
+    <None Remove="Scripts\Home\react\barChart.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Scripts\Home\react\all.js">
+    <Content Include="Scripts\Home\react\barChart.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>

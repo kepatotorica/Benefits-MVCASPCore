@@ -6,7 +6,7 @@ var BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 
 // https://sochix.ru/how-to-integrate-webpack-into-visual-studio-2015/
 module.exports = {
-    entry: "./wwwroot/Scripts/Home/react/all.js",
+    entry: "./wwwroot/Scripts/Home/react/barChart.js",
     output: {
         path: path.resolve(__dirname, "./wwwroot/Scripts/dist/Home/react"),
         filename: "bundle.js"

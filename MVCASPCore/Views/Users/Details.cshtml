@@ -49,7 +49,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |
-                <a asp-action="Index">Back to List</a>
+                <a asp-action="Index">Employee List</a>
             </td>
         </tr>
     </tbody>
@@ -110,8 +110,8 @@
                     @*<a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |*@
                     
                     <a asp-area="" asp-controller="Relatives" asp-action="Edit" asp-route-id="@std.RelId">Edit</a> |
-                    <a asp-area="" asp-controller="Relatives" asp-action="Delete" asp-route-id="@std.RelId">Delete</a> |
-                    <a asp-action="Index">Employees</a>
+                    <a asp-area="" asp-controller="Relatives" asp-action="Delete" asp-route-id="@std.RelId">Delete</a>
+                    @*<a asp-action="Index">Back to Employees</a>*@
                 </td>
             </tr>
             }
