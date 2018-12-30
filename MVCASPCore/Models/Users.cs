@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace MVCASPCore.Models
 {
@@ -11,7 +10,6 @@ namespace MVCASPCore.Models
             Relative = new HashSet<Relative>();
         }
 
-        [Key]
         public int UId { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }

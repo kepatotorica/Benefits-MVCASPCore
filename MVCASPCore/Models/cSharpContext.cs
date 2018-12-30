@@ -15,6 +15,7 @@ namespace MVCASPCore.Models
         {
         }
 
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Relative> Relative { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
@@ -29,6 +30,23 @@ namespace MVCASPCore.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.HasKey(e => e.AId);
+
+                entity.ToTable("admin");
+
+                entity.Property(e => e.AId).HasColumnName("a_id");
+
+                entity.Property(e => e.Password)
+                    .HasColumnName("password")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Username)
+                    .HasColumnName("username")
+                    .HasMaxLength(50);
+            });
+
             modelBuilder.Entity<Relative>(entity =>
             {
                 entity.HasKey(e => e.RelId);
