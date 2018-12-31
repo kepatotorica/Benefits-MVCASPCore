@@ -11,15 +11,23 @@
     ViewData["Title"] = "Benefits";
 }
 
+@using Microsoft.AspNetCore.Http;
+
+    @if (Context.Session.GetInt32("AId") != null)
+    {
+
+    }
+    else
+    {
+
+    }
 <h1>@ViewData["Title"]</h1>
 
-
-@*<div class="added" id="added" />*@
-
-
-
 <h4>User</h4>
+
+
 <hr />
+
 
 <table class="table">
     <thead>
@@ -57,12 +65,12 @@
 <hr />
 
 <div class="box">
-        <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
-        <div id="container" style="margin: auto;"> </div>
+    <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
+    <div id="container" style="margin: auto;"> </div>
 </div>
-    <div id="chart-div" style="background-color: #222222">
-        <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
-    </div>
+<div id="chart-div" style="background-color: #222222">
+    <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
+</div>
 
 
 
@@ -74,7 +82,7 @@
 <br />
 <h4>Dependents</h4>
 <hr />
-    <li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Add new</a></li>
+<li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Add new</a></li>
 @if (ViewData["Relatives"] != null)
 {
     <table class="table" id="relatives">
@@ -95,25 +103,25 @@
         <tbody>
             @foreach (var std in ViewData["Relatives"] as IList<Relative>)
             {
-            <tr>
-                <td>
-                    @std.FName
-                </td>
-                <td>
-                    @std.LName
-                </td>
-                <td>
-                    @std.Relation
-                </td>
-                <td>
-                    @*<a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |*@
-                    @*<a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |*@
-                    
-                    <a asp-area="" asp-controller="Relatives" asp-action="Edit" asp-route-id="@std.RelId">Edit</a> |
-                    <a asp-area="" asp-controller="Relatives" asp-action="Delete" asp-route-id="@std.RelId">Delete</a>
-                    @*<a asp-action="Index">Back to Employees</a>*@
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @std.FName
+                    </td>
+                    <td>
+                        @std.LName
+                    </td>
+                    <td>
+                        @std.Relation
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |*@
+                        @*<a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |*@
+
+                        <a asp-area="" asp-controller="Relatives" asp-action="Edit" asp-route-id="@std.RelId">Edit</a> |
+                        <a asp-area="" asp-controller="Relatives" asp-action="Delete" asp-route-id="@std.RelId">Delete</a>
+                        @*<a asp-action="Index">Back to Employees</a>*@
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -123,7 +131,7 @@ else
     <h1>No Dependents</h1>
 }
 
-    @*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
+@*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
