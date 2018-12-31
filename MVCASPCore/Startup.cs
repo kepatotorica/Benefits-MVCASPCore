@@ -36,7 +36,10 @@ namespace MVCASPCore
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
+
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             //using MVCASPCore.Models allows us to use cSharpContext
             services.AddDbContext<cSharpContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("cSharpDatabase")));//before UseNpgsql I had UseSqlServer and it caused tons of errors, becuase it was the wrong database provider
@@ -60,6 +63,7 @@ namespace MVCASPCore
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 //add other routes here

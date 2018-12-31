@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using MVCASPCore.Models;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace MVCASPCore.Controllers
 {
@@ -170,6 +172,10 @@ namespace MVCASPCore.Controllers
             {
                 try
                 {
+                    //Session["buh"] = "duh";
+                    //HttpContext.Session.SetString("name", "Jignesh Trivedi");
+                    HttpContext.Session.SetInt32("AId", 1);
+                    //HttpContext.Session.GetString(loggedInId);
                     //_context.Admin.Select
                     _context.Update(admin);
                     await _context.SaveChangesAsync();
