@@ -34,7 +34,16 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="admins" asp-action="Login">Login</a></li>
+                    @using Microsoft.AspNetCore.Http;
+                    @if (Context.Session.GetInt32("AId") != null)
+                    {
+                        <li><a asp-area="" asp-controller="admins" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="admins" asp-action="Login">Login</a></li>
+                    }
+
                 </ul>
             </div>
         </div>
