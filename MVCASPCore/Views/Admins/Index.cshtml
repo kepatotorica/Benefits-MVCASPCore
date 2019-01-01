@@ -13,7 +13,7 @@ else
     ViewData["Title"] = "Index";
 }
 @using Microsoft.AspNetCore.Http;
-@if (Context.Session.GetInt32("AId") != null)
+@if (Context.Session.GetInt32("AId") > -1)
 {
 
 }

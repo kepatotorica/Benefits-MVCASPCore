@@ -154,10 +154,16 @@ namespace MVCASPCore.Controllers
             return _context.Admin.Any(e => e.AId == id);
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.Session.SetInt32("AId", -1);
+            return RedirectToAction(nameof(Login));
+        }
 
         // GET: Admins/Edit/5
         public async Task<IActionResult> Login()
         {
+            HttpContext.Session.SetInt32("AId", -1);
             return View();
         }
 
@@ -168,32 +174,23 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Username,Password")] Admin admin)
         {
-            if (ModelState.IsValid)
+            //Session["buh"] = "duh";
+            //HttpContext.Session.SetString("name", "Jignesh Trivedi");
+            var lAdmin = _context.Admin.SingleOrDefault(x => x.Password == GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt") && x.Username == admin.Username);
+            if(lAdmin != null)
             {
-                try
-                {
-                    //Session["buh"] = "duh";
-                    //HttpContext.Session.SetString("name", "Jignesh Trivedi");
-                    HttpContext.Session.SetInt32("AId", 1);
-                    //HttpContext.Session.GetString(loggedInId);
-                    //_context.Admin.Select
-                    _context.Update(admin);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AdminExists(admin.AId))
-                    {
-                        return View();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                ViewData["invalid"] = false;
+                HttpContext.Session.SetInt32("AId", lAdmin.AId);
+                //return RedirectToAction("Index", "Users");
+                return View();
             }
-            return View(admin);
+            else
+            {
+                ViewData["invalid"] = true;
+                HttpContext.Session.SetInt32("AId", -1);
+                return View();
+            }
+  
         }
 
         //Build a hash string for the password. https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?redirectedfrom=MSDN&view=netframework-4.7.2 
