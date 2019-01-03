@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -16,7 +17,7 @@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,21 +29,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="About" class="navbar-brand">FAQ</a>
+                @if (Context.Session.GetInt32("AId") > -1)
+                {
+                    <a asp-area="" asp-controller="admins" asp-action="Logout" class="navbar-brand">Logout</a> @*prob shouldn't use brand*@
+                }
+                else
+                {
+                    <a asp-area="" asp-controller="admins" asp-action="Login" class="navbar-brand">Login</a>
+                }
             </div>
             <div class="navbar-collapse collapse" style="float: right">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    @using Microsoft.AspNetCore.Http;
                     @if (Context.Session.GetInt32("AId") > -1)
                     {
-                        <li><a asp-area="" asp-controller="admins" asp-action="Logout">Logout</a></li>
+                        <li><a asp-area="" asp-controller="Admins" asp-action="Index">Admins</a></li> @*Don't know if this is a good idea*@
                     }
-                    else
-                    {
-                        <li><a asp-area="" asp-controller="admins" asp-action="Login">Login</a></li>
-                    }
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">FAQ</a></li>
 
                 </ul>
             </div>
@@ -85,9 +89,9 @@
     <script src="~/Scripts/dist/Home/react/bundle.js"></script>
 
     @*<script id="__bs_script__">
-    //<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
-//]]></script>*@
+            //<![CDATA[
+                document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.3'><\/script>".replace("HOST", location.hostname));
+        //]]></script>*@
 
 </body>
 </html>

@@ -207,6 +207,7 @@ namespace MVCASPCore.Controllers
             if(lAdmin != null)
             {
                 ViewData["invalid"] = false;
+                HttpContext.Session.SetInt32("Attempts", 0);
                 HttpContext.Session.SetInt32("AId", lAdmin.AId);
                 return RedirectToAction("Index", "Users");
             }

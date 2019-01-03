@@ -1,26 +1,16 @@
 ﻿@model IEnumerable<MVCASPCore.Models.Admin>
 @*@using Microsoft.AspNetCore.Http;
-@if (Context.Session.GetInt32("AId") != null)
-{
-
-}
-else
-{
-
-}*@
+    @if (Context.Session.GetInt32("AId") > -1)
+    {
+    }
+    else
+    {
+    }*@
 
 @{
     ViewData["Title"] = "Index";
 }
-@using Microsoft.AspNetCore.Http;
-@if (Context.Session.GetInt32("AId") > -1)
-{
 
-}
-else
-{
-
-}
 <h2>Index</h2>
 
 <p>
@@ -44,21 +34,21 @@ else
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AId">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.AId">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AId">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AId">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
