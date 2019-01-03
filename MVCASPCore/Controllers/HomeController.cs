@@ -13,7 +13,6 @@ namespace MVCASPCore.Controllers
         
         public IActionResult About()
         {
-            ViewData["Message"] = "Simple benefit manager";
             return View();
         }
 

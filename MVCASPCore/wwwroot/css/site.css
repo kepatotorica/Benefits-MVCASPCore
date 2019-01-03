@@ -69,3 +69,11 @@ canvas {
     /*float: right;*/
 }
 
+.question{
+    color: white;
+}
+
+.answer {
+    color: grey;
+    margin-left: 2vw;
+}
