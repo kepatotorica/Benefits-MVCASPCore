@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Login">
+        <form asp-action="Login" id="logForm">
             <div class="form-group">
                 <label asp-for="Username" class="control-label">Username/Email</label>
                 <input asp-for="Username" id="name" class="form-control" />
@@ -22,7 +22,7 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-default" />
+                <input type="submit" value="Login" class="btn btn-default" id="login"/>
                 <span id="p1" style="color: red; display: none">Oops! your login credentials were invalid</span>
             </div>
         </form>
@@ -43,11 +43,19 @@
 
     var invalid = document.getElementById("invalid").innerText;
     var fadeTarget = document.getElementById("p1");
-    var numAllowed = 5;
+    var numAllowed = 3;
     if (invalid > 0) {
         fadeTarget.style.display = "inline";
         var temp = numAllowed - invalid 
         fadeTarget.innerText += ". " + temp + " attempts left";// "&nbsp; " won't add a space, so I removed the period from above
+        if (temp <= 0) {
+            document.getElementById("name").disabled = true;
+            document.getElementById("pass").disabled = true;
+            document.getElementById("logForm").disabled = true;
+            document.getElementById("login").disabled = true;
+            fadeTarget.innerText = "No more attempts";
+        }
+        
         var fadeEffect = setInterval(function () {
             if (!fadeTarget.style.opacity) {
                 fadeTarget.style.opacity = 5;
