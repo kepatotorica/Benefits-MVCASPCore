@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCASPCore.Models;
+using Microsoft.AspNetCore.Http;
 //using static MVCASPCore.Controllers.UsersController;
 
 namespace MVCASPCore.Controllers
@@ -22,6 +23,11 @@ namespace MVCASPCore.Controllers
         // GET: Relatives
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             var cSharpContext = _context.Relative.Include(r => r.U);
             return View(await cSharpContext.ToListAsync());
         }
@@ -29,6 +35,11 @@ namespace MVCASPCore.Controllers
         // GET: Relatives/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -55,6 +66,11 @@ namespace MVCASPCore.Controllers
         // GET: Users/Create
         public IActionResult Create(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
             ViewData["aId"] = id;
             return View();
@@ -68,6 +84,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RelId,FName,LName,Relation,UId")] Relative relative)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(relative);
@@ -82,6 +103,11 @@ namespace MVCASPCore.Controllers
         // GET: Relatives/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -103,6 +129,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RelId,FName,LName,Relation,UId")] Relative relative)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id != relative.RelId)
             {
                 return NotFound();
@@ -136,6 +167,11 @@ namespace MVCASPCore.Controllers
         // GET: Relatives/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -157,6 +193,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             var relative = await _context.Relative.FindAsync(id);
             _context.Relative.Remove(relative);
             await _context.SaveChangesAsync();

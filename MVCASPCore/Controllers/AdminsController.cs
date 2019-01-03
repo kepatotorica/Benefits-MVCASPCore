@@ -25,12 +25,22 @@ namespace MVCASPCore.Controllers
         // GET: Admins
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             return View(await _context.Admin.ToListAsync());
         }
 
         // GET: Admins/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -49,6 +59,11 @@ namespace MVCASPCore.Controllers
         // GET: Admins/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             return View();
         }
 
@@ -59,6 +74,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AId,Username,Password")] Admin admin)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (ModelState.IsValid)
             {
                 admin.Password = GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt");
@@ -72,6 +92,11 @@ namespace MVCASPCore.Controllers
         // GET: Admins/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -92,6 +117,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AId,Username,Password")] Admin admin)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id != admin.AId)
             {
                 return NotFound();
@@ -123,6 +153,11 @@ namespace MVCASPCore.Controllers
         // GET: Admins/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -143,6 +178,11 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
+
             var admin = await _context.Admin.FindAsync(id);
             _context.Admin.Remove(admin);
             await _context.SaveChangesAsync();
@@ -181,8 +221,8 @@ namespace MVCASPCore.Controllers
             {
                 ViewData["invalid"] = false;
                 HttpContext.Session.SetInt32("AId", lAdmin.AId);
-                //return RedirectToAction("Index", "Users");
-                return View();
+                return RedirectToAction("Index", "Users");
+                //return View();
             }
             else
             {
@@ -196,7 +236,6 @@ namespace MVCASPCore.Controllers
         //Build a hash string for the password. https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.md5?redirectedfrom=MSDN&view=netframework-4.7.2 
         string GetMd5Hash(MD5 md5Hash, string input)
         {
-
             // Convert the input string to a byte array and compute the hash.
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
 
@@ -214,6 +253,7 @@ namespace MVCASPCore.Controllers
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
+
     }
 }
 

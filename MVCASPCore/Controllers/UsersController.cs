@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCASPCore.Models;
 using X.PagedList; //this is an awesome package, it allows you to do pagenation very easily
+using Microsoft.AspNetCore.Http;
 
 namespace MVCASPCore.Controllers
 {
@@ -33,8 +34,11 @@ namespace MVCASPCore.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index(string search, int sortOrder, string currentSearch, int? page)//I think the questionmark is to say it can't be null,
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             ViewData["CurrentSort"] = sortOrder; //reset current sort order, for state preservation
-
             if (search != null)
             {
                 page = 1;
@@ -79,6 +83,10 @@ namespace MVCASPCore.Controllers
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             if (id == null)
             {
                 return NotFound();//TODO if our id is null, which I don't thik would even happen unless you change the url string manually. Need to fix this 404 error
@@ -114,6 +122,10 @@ namespace MVCASPCore.Controllers
         // GET: Users/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             return View();
         }
 
@@ -124,6 +136,10 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FName,LName,Email,Gender")] Users users)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(users);
@@ -137,6 +153,10 @@ namespace MVCASPCore.Controllers
         // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -158,6 +178,10 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UId,FName,LName,Email,Gender")] Users users)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             if (id != users.UId)
             {
                 return NotFound();
@@ -190,6 +214,10 @@ namespace MVCASPCore.Controllers
         // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -210,10 +238,17 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetInt32("AId") < 0)
+            {
+                return RedirectToAction("Login", "Admins");
+            }
             var users = await _context.Users.FindAsync(id);
-            _context.Relative.RemoveRange(_context.Relative.Where(rel => rel.U.UId == id)); //remove all the relatives of the user we are removing
-            _context.Users.Remove(users); //remove the user after clearning it's dependencies
-            await _context.SaveChangesAsync();
+            if (users != null) //shouldn't need this if, but I need to fix the routing
+            {
+                _context.Relative.RemoveRange(_context.Relative.Where(rel => rel.U.UId == id)); //remove all the relatives of the user we are removing
+                _context.Users.Remove(users); //remove the user after clearning it's dependencies
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(Index));
         }
 

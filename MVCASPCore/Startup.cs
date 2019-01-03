@@ -73,7 +73,7 @@ namespace MVCASPCore
 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=admins}/{action=Login}");
+                    template: "{controller=admins}/{action=Login}/{id?}");
             });
         }
     }
