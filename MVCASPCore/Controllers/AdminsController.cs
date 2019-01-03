@@ -33,29 +33,6 @@ namespace MVCASPCore.Controllers
             return View(await _context.Admin.ToListAsync());
         }
 
-        // GET: Admins/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (HttpContext.Session.GetInt32("AId") < 0)
-            {
-                return RedirectToAction("Login", "Admins");
-            }
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var admin = await _context.Admin
-                .FirstOrDefaultAsync(m => m.AId == id);
-            if (admin == null)
-            {
-                return NotFound();
-            }
-
-            return View(admin);
-        }
-
         // GET: Admins/Create
         public IActionResult Create()
         {
@@ -107,6 +84,7 @@ namespace MVCASPCore.Controllers
             {
                 return NotFound();
             }
+            admin.Password = "";
             return View(admin);
         }
 
@@ -131,6 +109,7 @@ namespace MVCASPCore.Controllers
             {
                 try
                 {
+                    admin.Password = GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt");
                     _context.Update(admin);
                     await _context.SaveChangesAsync();
                 }
