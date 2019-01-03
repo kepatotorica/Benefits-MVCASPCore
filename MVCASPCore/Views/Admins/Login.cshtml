@@ -1,4 +1,5 @@
 ﻿@model MVCASPCore.Models.Admin
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Login";
@@ -6,7 +7,6 @@
 
 <h2>Login</h2>
 <h4>Admin</h4>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-default" />
-                <span id="p1" style="color: red">Oops! your login credentials were invalid.</span>
+                <span id="p1" style="color: red; display: none">Oops! your login credentials were invalid</span>
             </div>
         </form>
     </div>
@@ -37,13 +37,17 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<p id="invalid" style="display: none">@ViewData["Invalid"]</p>
+@*<p id="invalid" style="display: none">@ViewData["Invalid"]</p>*@
+<p id="invalid" style="display: none">@Context.Session.GetInt32("Attempts")</p>
 <script>
 
     var invalid = document.getElementById("invalid").innerText;
-    //document.getElementById("p1").innerHTML = invalid;
-    //function fadeOutEffect() {
-        var fadeTarget = document.getElementById("p1");
+    var fadeTarget = document.getElementById("p1");
+    var numAllowed = 5;
+    if (invalid > 0) {
+        fadeTarget.style.display = "inline";
+        var temp = numAllowed - invalid 
+        fadeTarget.innerText += ". " + temp + " attempts left";// "&nbsp; " won't add a space, so I removed the period from above
         var fadeEffect = setInterval(function () {
             if (!fadeTarget.style.opacity) {
                 fadeTarget.style.opacity = 5;
@@ -52,8 +56,9 @@
                 fadeTarget.style.opacity -= 0.05;
             } else {
                 clearInterval(fadeEffect);
-                fadeTarget.style.display = "none";
+                //fadeTarget.style.display = "none";//this is pointless if inline, but left it here if I change my mind
             }
-    }, 25);
+        }, 25);
+    }
     //}
 </script>

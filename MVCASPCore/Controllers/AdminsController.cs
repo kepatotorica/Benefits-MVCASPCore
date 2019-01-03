@@ -182,6 +182,12 @@ namespace MVCASPCore.Controllers
         // GET: Admins/Edit/5
         public async Task<IActionResult> Login()
         {
+            var attempts = HttpContext.Session.GetInt32("Attempts");
+            if(attempts == null)
+            {
+                HttpContext.Session.SetInt32("Attempts", 0);
+            }
+            
             HttpContext.Session.SetInt32("AId", -1);
             return View();
         }
@@ -193,16 +199,19 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Username,Password")] Admin admin)
         {
+            var attempts = HttpContext.Session.GetInt32("Attempts");//get num attempts
+            //attempts++;//increase num attempts
+            HttpContext.Session.SetInt32("Attempts", (int)++attempts);//set num attempts
+
             var lAdmin = _context.Admin.SingleOrDefault(x => x.Password == GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt") && (x.Username == admin.Username || x.Email == admin.Username));
             if(lAdmin != null)
             {
                 ViewData["invalid"] = false;
                 HttpContext.Session.SetInt32("AId", lAdmin.AId);
                 return RedirectToAction("Index", "Users");
-                //return View();
             }
             else
-            {
+            {          
                 ViewData["invalid"] = true;
                 HttpContext.Session.SetInt32("AId", -1);
                 return View();
