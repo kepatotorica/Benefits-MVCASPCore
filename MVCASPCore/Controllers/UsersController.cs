@@ -89,14 +89,14 @@ namespace MVCASPCore.Controllers
             }
             if (id == null)
             {
-                return NotFound();//TODO if our id is null, which I don't thik would even happen unless you change the url string manually. Need to fix this 404 error
+                return RedirectToAction(nameof(Index));
             }
 
             var users = await _context.Users
                 .FirstOrDefaultAsync(m => m.UId == id);
             if (users == null)
             {
-                return NotFound(); //if our user isn't found, return that, todo make it so that this error is handled more gracefully, currently it is just a 404
+                return RedirectToAction(nameof(Index));
             }
 
             //TODO look into using the colletion provided in the modle.Users instead of this
@@ -159,13 +159,13 @@ namespace MVCASPCore.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             var users = await _context.Users.FindAsync(id);
             if (users == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
             ViewData["UId"] = id;
             return View(users);
@@ -184,7 +184,7 @@ namespace MVCASPCore.Controllers
             }
             if (id != users.UId)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
@@ -198,7 +198,7 @@ namespace MVCASPCore.Controllers
                 {
                     if (!UsersExists(users.UId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Index));
                     }
                     else
                     {
@@ -220,14 +220,14 @@ namespace MVCASPCore.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             var users = await _context.Users
                 .FirstOrDefaultAsync(m => m.UId == id);
             if (users == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
             ViewData["UId"] = id;
             return View(users);
