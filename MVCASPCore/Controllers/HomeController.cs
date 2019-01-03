@@ -13,6 +13,19 @@ namespace MVCASPCore.Controllers
         
         public IActionResult About()
         {
+            //change these to effect the about page
+            double basePay = 2000;
+            double baseBenefits = 1000;
+            double baseDependant = 500;
+            double discount = .1;
+
+            ViewData["Benefits"] = baseBenefits;
+            ViewData["PayCheck"] = basePay;
+            ViewData["PerPerson"] = baseDependant;
+            ViewData["Discount"] = discount * 100;
+            ViewData["AName"] = (1 - discount) * baseDependant;
+            ViewData["numChecks"] = 26;
+
             return View();
         }
 
