@@ -96,7 +96,7 @@ namespace MVCASPCore.Controllers
                 .FirstOrDefaultAsync(m => m.UId == id);
             if (users == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
 
             //TODO look into using the colletion provided in the modle.Users instead of this
@@ -144,7 +144,7 @@ namespace MVCASPCore.Controllers
             {
                 _context.Add(users);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));//asdf
                 return RedirectToAction("Details", "Users", new { id = users.UId });
             }
             return View(users);
@@ -159,13 +159,13 @@ namespace MVCASPCore.Controllers
             }
             if (id == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
 
             var users = await _context.Users.FindAsync(id);
             if (users == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
             ViewData["UId"] = id;
             return View(users);
@@ -184,7 +184,7 @@ namespace MVCASPCore.Controllers
             }
             if (id != users.UId)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
 
             if (ModelState.IsValid)
@@ -198,14 +198,14 @@ namespace MVCASPCore.Controllers
                 {
                     if (!UsersExists(users.UId))
                     {
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Index));//asdf
                     }
                     else
                     {
                         throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));//asdf
                 return RedirectToAction("Details", "Users", new { id = users.UId });
             }
             return View(users);
@@ -220,14 +220,14 @@ namespace MVCASPCore.Controllers
             }
             if (id == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
 
             var users = await _context.Users
                 .FirstOrDefaultAsync(m => m.UId == id);
             if (users == null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));//asdf
             }
             ViewData["UId"] = id;
             return View(users);

@@ -76,13 +76,13 @@ namespace MVCASPCore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));//asdf;
             }
 
             var admin = await _context.Admin.FindAsync(id);
             if (admin == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));//asdf;
             }
             admin.Password = "";
             return View(admin);
@@ -102,7 +102,7 @@ namespace MVCASPCore.Controllers
 
             if (id != admin.AId)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));//asdf;
             }
 
             if (ModelState.IsValid)
@@ -117,7 +117,7 @@ namespace MVCASPCore.Controllers
                 {
                     if (!AdminExists(admin.AId))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Index));//asdf;
                     }
                     else
                     {
@@ -139,14 +139,14 @@ namespace MVCASPCore.Controllers
 
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));//asdf;
             }
 
             var admin = await _context.Admin
                 .FirstOrDefaultAsync(m => m.AId == id);
             if (admin == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));//asdf;
             }
 
             return View(admin);
