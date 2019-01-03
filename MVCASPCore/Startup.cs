@@ -37,7 +37,8 @@ namespace MVCASPCore
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
             //using MVCASPCore.Models allows us to use cSharpContext

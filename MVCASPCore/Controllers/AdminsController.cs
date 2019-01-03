@@ -49,7 +49,7 @@ namespace MVCASPCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AId,Username,Password")] Admin admin)
+        public async Task<IActionResult> Create([Bind("AId,Username,Password,Email")] Admin admin)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
             {
@@ -93,7 +93,7 @@ namespace MVCASPCore.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AId,Username,Password")] Admin admin)
+        public async Task<IActionResult> Edit(int id, [Bind("AId,Username,Password,Email")] Admin admin)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
             {
@@ -193,7 +193,7 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Username,Password")] Admin admin)
         {
-            var lAdmin = _context.Admin.SingleOrDefault(x => x.Password == GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt") && x.Username == admin.Username);
+            var lAdmin = _context.Admin.SingleOrDefault(x => x.Password == GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt") && (x.Username == admin.Username || x.Email == admin.Username));
             if(lAdmin != null)
             {
                 ViewData["invalid"] = false;

@@ -38,6 +38,10 @@ namespace MVCASPCore.Models
 
                 entity.Property(e => e.AId).HasColumnName("a_id");
 
+                entity.Property(e => e.Email)
+                    .HasColumnName("email")
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.Password)
                     .HasColumnName("password")
                     .HasMaxLength(50);

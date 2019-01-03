@@ -5,24 +5,25 @@
 }
 
 <h2>Login</h2>
-    @ViewData["invalid"]
 <h4>Admin</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Login">
             <div class="form-group">
-                <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <label asp-for="Username" class="control-label">Username/Email</label>
+                <input asp-for="Username" id="name" class="form-control" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password"/>
+                <input asp-for="Password" id="pass" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-default" />
+                <span id="p1" style="color: red">Oops! your login credentials were invalid.</span>
             </div>
         </form>
     </div>
@@ -35,3 +36,24 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<p id="invalid" style="display: none">@ViewData["Invalid"]</p>
+<script>
+
+    var invalid = document.getElementById("invalid").innerText;
+    //document.getElementById("p1").innerHTML = invalid;
+    //function fadeOutEffect() {
+        var fadeTarget = document.getElementById("p1");
+        var fadeEffect = setInterval(function () {
+            if (!fadeTarget.style.opacity) {
+                fadeTarget.style.opacity = 5;
+            }
+            if (fadeTarget.style.opacity > 0) {
+                fadeTarget.style.opacity -= 0.05;
+            } else {
+                clearInterval(fadeEffect);
+                fadeTarget.style.display = "none";
+            }
+    }, 25);
+    //}
+</script>
