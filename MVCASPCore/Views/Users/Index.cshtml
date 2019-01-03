@@ -11,10 +11,22 @@
 @{
     ViewData["Title"] = "Users";
 }
+<br />
+<br />
+<h2 style="display: inline">@ViewData["Title"]</h2>
 
-<h2>@ViewData["Title"]</h2>
-
-
+<a href="#" style="float: right; position: relative; transform: translate(0%,-15%);" class="btn btn-default" data-toggle="popover" data-html="true" data-placement="left" data-content='
+   <form method="POST">
+       <div class="form-inline">
+           <input type="text" class="form-control" id="Search" name="Search" placeholder="empty will reset results">
+           <button type="submit" value="Search" class="btn btn-default">
+               <span class="glyphicon glyphicon-search" style="float: right"></span>
+            </button>
+</div>
+   </form>
+'>Search</a>
+@* I know how terrible this css is *@
+<a asp-action="Create" class="btn btn-default" style="float: right; position: relative; transform: translate(-10%,-15%);">New User</a>
 
 
 
@@ -65,17 +77,7 @@
         }
     </tbody>
 </table>
-<a href="#" style="float: right; position: relative;" class="btn btn-primary" data-toggle="popover" data-html="true" data-placement="left" data-content='
-   <form method="POST">
-       <div class="form-inline">
-           <input type="text" class="form-inline" id="Search" name="Search" placeholder="empty will reset results">
-           <button type="submit" value="Search" class="btn btn-primary">
-               <span class="glyphicon glyphicon-search"></span>
-            </button>
-</div>
-   </form>
-'>Search</a>
-<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>
+
 
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
