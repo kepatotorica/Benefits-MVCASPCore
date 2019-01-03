@@ -214,8 +214,6 @@ namespace MVCASPCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([Bind("Username,Password")] Admin admin)
         {
-            //Session["buh"] = "duh";
-            //HttpContext.Session.SetString("name", "Jignesh Trivedi");
             var lAdmin = _context.Admin.SingleOrDefault(x => x.Password == GetMd5Hash(MD5.Create(), "xfo3ip2a51s23d15g5j" + admin.Password + "$4Lt") && x.Username == admin.Username);
             if(lAdmin != null)
             {
