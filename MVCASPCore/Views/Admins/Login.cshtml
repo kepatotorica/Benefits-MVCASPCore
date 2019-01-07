@@ -17,12 +17,12 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label"></label> <span id="caps" style="color: red; opacity: 0">Caps lock is on!</span> @*is it better practice to use display none?*@
                 <input asp-for="Password" id="pass" class="form-control" type="password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-default" id="login"/>
+                <input type="submit" value="Login" class="btn btn-default" id="login" />
                 <span id="p1" style="color: red; display: none">Oops! your login credentials were invalid</span>
             </div>
         </form>
@@ -40,13 +40,13 @@
 @*<p id="invalid" style="display: none">@ViewData["Invalid"]</p>*@
 <p id="invalid" style="display: none">@Context.Session.GetInt32("Attempts")</p>
 <script>
-
+    //this script makes it so you can only have three attempts. The problem is that you can cheese this
     var invalid = document.getElementById("invalid").innerText;
     var fadeTarget = document.getElementById("p1");
     var numAllowed = 3;
     if (invalid > 0) {
         fadeTarget.style.display = "inline";
-        var temp = numAllowed - invalid 
+        var temp = numAllowed - invalid
         fadeTarget.innerText += ". " + temp + " attempts left";// "&nbsp; " won't add a space, so I removed the period from above
         if (temp <= 0) {
             document.getElementById("name").disabled = true;
@@ -55,7 +55,7 @@
             document.getElementById("login").disabled = true;
             fadeTarget.innerText = "No more attempts";
         }
-        
+
         var fadeEffect = setInterval(function () {
             if (!fadeTarget.style.opacity) {
                 fadeTarget.style.opacity = 5;
@@ -69,4 +69,17 @@
         }, 25);
     }
     //}
+</script>
+
+<script>
+    //check if capslock is pressed
+    document.addEventListener('keydown', function (event) {
+        var caps = event.getModifierState && event.getModifierState('CapsLock');
+        capsLabel = document.getElementById("caps");
+        if (caps) {
+            capsLabel.style.opacity = 1;
+        } else {
+            capsLabel.style.opacity = 0;
+        }
+    });
 </script>

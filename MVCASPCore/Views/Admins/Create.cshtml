@@ -23,12 +23,12 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
+                <label asp-for="Password" class="control-label"></label> <span id="caps" style="color: red; opacity: 0">Caps lock is on!</span>
                 <input asp-for="Password" id="pass" class="form-control" type="password" required/>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Confirm Password</label>
+                <label class="control-label">Confirm Password</label> <span id="caps2" style="color: red; opacity: 0">Caps lock is on!</span>
                 <input id="passCheck" class="form-control" type="password" onkeyup="checkPass(); return false;" required/>
                 <span class="text-danger"></span>
             </div>
@@ -66,4 +66,20 @@
             //message.innerHTML = "Passwords Do Not Match!"
         }
     }  
+</script>
+
+<script>
+    //check if capslock is pressed
+    document.addEventListener('keydown', function (event) {
+        var caps = event.getModifierState && event.getModifierState('CapsLock');
+        capsLabel = document.getElementById("caps");
+        capsLabel2 = document.getElementById("caps2");
+        if (caps) {
+            capsLabel.style.opacity = 1;
+            capsLabel2.style.opacity = 1;
+        } else {
+            capsLabel.style.opacity = 0;
+            capsLabel2.style.opacity = 0;
+        }
+    });
 </script>
