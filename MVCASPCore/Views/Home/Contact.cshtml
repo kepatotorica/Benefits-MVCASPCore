@@ -1,16 +1,16 @@
 ﻿@*<br />
-<form method="POST">
-    <label for="FName">Relative name</label>
-    <br />
-    <input type="text" id="FName" class="form-inline" name="FName" placeholder="first" />
-    <br />
-    <br />
-    <input type="text" id="LName" class="form-inline" name="LName" placeholder="last" />
-    <br />
-    <br />
-    <input type="submit" />
-</form>
-<br />*@
+    <form method="POST">
+        <label for="FName">Relative name</label>
+        <br />
+        <input type="text" id="FName" class="form-inline" name="FName" placeholder="first" />
+        <br />
+        <br />
+        <input type="text" id="LName" class="form-inline" name="LName" placeholder="last" />
+        <br />
+        <br />
+        <input type="submit" />
+    </form>
+    <br />*@
 
 
 <h1>FAQ</h1>
@@ -34,24 +34,28 @@
 @*<p class="question">Q: </p>
     <p class="answer">A: </p>*@
 
-<p class="btn btn-default" onclick="showAdd()" >Didn't answer your question?</p>
+<h1 class="btn btn-default" onclick="showAdd()">Contact Us</h1>
+@*<p class="btn btn-default" onclick="showAdd()" >Didn't answer your question?</p>*@
 @*<a asp-action="Contact" class="btn btn-default" style="margin-left: 2vw;">Contact</a>*@
 
-<address id="ad1">
-    4858 East Douglas Fir Street<br />
-    Boise, ID 83716<br />
-    <abbr title="Phone">P:</abbr>
-    208.599.5425
-</address>
+@*<address id="ad1">
+        4858 East Douglas Fir Street<br />
+        Boise, ID 83716<br />
+    </address>*@
 
 <address id="ad2">
-    <strong>Support:</strong> <a href="mailto:kepatoto@gmail.com">kepatoto@gmail.com</a><br />
+    <strong>Email:</strong> <a href="mailto:kepatoto@gmail.com">kepatoto@gmail.com</a><br />
+    <strong>Phone:</strong> <abbr title="Phone" style="color: #0ce3ac">208.599.5425</abbr>
 </address>
+
+
+@*<a class="fl r-iWpBOeZIdR30" href="#" data-number="+12083840744" data-pstn-out-call-url="" title="Call via Hangouts" jsaction="r.oVdbr2mIpA8" data-rtid="iWpBOeZIdR30" jsl="$t t-6xg4lalHw8M;$x 0;" data-ved="2ahUKEwivjei5z93fAhVG-lQKHeYJAXkQkAgoADAJegQIARBM">(208) 384-0744</a>*@
+@* ^^ this is googles hangouts call implementation, I doubt it will work on my site, may want to use it*@
 
 <script>
     var show = 1;
     function showAdd() {
-        hide("ad1");
+        //hide("ad1");
         hide("ad2");
     }
 
@@ -72,7 +76,7 @@
     //        }
     //    }, 25);
     //}
-    
+
     function hide(id) {
         var e = document.getElementById(id);
         if (e.style.display == "block") {

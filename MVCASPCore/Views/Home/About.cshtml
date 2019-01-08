@@ -1,31 +1,4 @@
-﻿@{
-    ViewData["Title"] = "About";
-    //ViewData["Benefits"] = baseBenefits;
-    //ViewData["PayCheck"] = basePay;
-    //ViewData["PerPerson"] = baseDependant;
-    //ViewData["Discount"] = discount * 100;
-    //ViewData["AName"] = (1 - discount) * baseDependant;
-}
+﻿
+<h1>About</h1>
 
-@*<h3>@ViewData["Title"]</h3>*@
-<h1>FAQ</h1>
-
-<p class="question">Q: How are benefits calculated</p>
-<p class="answer">
-    A: Benefits are calculated on a per person basis. Each person that is part of the benifits package
-    results in a deduction of $@ViewData["PerPerson"] from the base yearly benifits package. If this persons name begins
-    with an 'A', a discount of @ViewData["Discount"]% is applied to their cost, in this case $@ViewData["AName"].
-</p>
-
-<p class="question">Q: Why is my paycheck not $2000</p>
-<p class="answer">A: If you have enough dependents to overcome the $@ViewData["Benefits"] in benefits alloted to you
-                     then your benefits will start to be paid for out of your paycheck.</p>
-
-<p class="question">Q: How many paychecks do I get</p>
-<p class="answer">A: Our company distributes a total of @ViewData["numChecks"] paychecks per year, in denominations of $@ViewData["PayCheck"]</p>
-
-<p class="question" >Didn't answer your question?</p>
-<a asp-action="Contact" class="btn btn-default" style="margin-left: 2vw;">Contact</a>
-
-@*<p class="question">Q: </p>
-<p class="answer">A: </p>*@
+This website was created to help you easily manage and view employee benefits.
