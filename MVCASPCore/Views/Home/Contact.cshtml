@@ -53,42 +53,25 @@
     function showAdd() {
         hide("ad1");
         hide("ad2");
-        //if (show < 1) {
-        //    //slowHide();
-        //    document.getElementById("ad1").style.display = "none";
-        //    document.getElementById("ad2").style.display = "none";
-        //} else {
-        //    document.getElementById("ad1").style.display = "block";
-        //    document.getElementById("ad2").style.display = "block";
-        //}
-        //show *= -1;
     }
 
-    //function slowHide() {
-    //    var fadeTarget = document.getElementById("ad1");
-    //    var fadeTarget2 = document.getElementById("ad2");
-
+    //function slowHide(id) {
+    //    var fadeTarget = document.getElementById(id);
     //    fadeTarget.style.display = "block";
-
     //    var fadeEffect = setInterval(function () {
     //        if (!fadeTarget.style.opacity) {
     //            fadeTarget.style.opacity = 1;
-    //            fadeTarget2.style.opacity = 1;
     //        }
     //        if (fadeTarget.style.opacity > 0) {
     //            fadeTarget.style.opacity -= 0.05;
-    //            fadeTarget2.style.opacity -= 0.05;
 
     //        } else {
     //            clearInterval(fadeEffect);
     //            fadeTarget.style.display = "none";//this is pointless if inline, but left it here if I change my mind
-    //            fadeTarget2.style.display = "none";//this is pointless if inline, but left it here if I change my mind
-    //            fadeTarget.style.opacity = 5;
-    //            fadeTarget2.style.opacity = 5;
+    //            fadeTarget.style.opacity = 1;
     //        }
     //    }, 25);
     //}
-
     
     function hide(id) {
         var e = document.getElementById(id);
