@@ -35,16 +35,28 @@ namespace MVCASPCore.Controllers
             string user = "Kepa Totorica";
             ViewData["Message"] = user;
 
+            double basePay = 2000;
+            double baseBenefits = 1000;
+            double baseDependant = 500;
+            double discount = .1;
+
+            ViewData["Benefits"] = baseBenefits;
+            ViewData["PayCheck"] = basePay;
+            ViewData["PerPerson"] = baseDependant;
+            ViewData["Discount"] = discount * 100;
+            ViewData["AName"] = (1 - discount) * baseDependant;
+            ViewData["numChecks"] = 26;
+
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Contact(string FName, string LName)
-        {
-            ViewData["Added"] = true;
-            ViewData["NameAdded"] = FName;
-            return Contact();
-        }
+        //[HttpPost]
+        //public IActionResult Contact(string FName, string LName)
+        //{
+        //    ViewData["Added"] = true;
+        //    ViewData["NameAdded"] = FName;
+        //    return Contact();
+        //}
 
         public IActionResult Privacy()
         {

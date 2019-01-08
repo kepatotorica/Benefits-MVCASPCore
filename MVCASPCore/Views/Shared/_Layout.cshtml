@@ -31,22 +31,28 @@
                 </button>
                 @if (Context.Session.GetInt32("AId") > -1)
                 {
-                    <a asp-area="" asp-controller="admins" asp-action="Logout" class="navbar-brand">Logout</a> @*prob shouldn't use brand*@
+                    <a asp-area="" asp-controller="Users" asp-action="Index" class="navbar-brand">Users</a>
+                    @*prob shouldn't use brand*@
                 }
                 else
                 {
-                    <a asp-area="" asp-controller="admins" asp-action="Login" class="navbar-brand">Login</a>
                 }
             </div>
             <div class="navbar-collapse collapse" style="float: right">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Users" asp-action="Index">Users</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Help</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     @if (Context.Session.GetInt32("AId") > -1)
                     {
                         <li><a asp-area="" asp-controller="Admins" asp-action="Index">Admins</a></li> @*Don't know if this is a good idea*@
+                        <li> <a asp-area="" asp-controller="admins" asp-action="Logout">Logout</a></li>
                     }
-                        <li><a asp-area="" asp-controller="Home" asp-action="About">FAQ</a></li>
+                    else
+                    {
+                        <li><a asp-area="" asp-controller="admins" asp-action="Login">Login</a></li>
+                    }
+
 
                 </ul>
             </div>

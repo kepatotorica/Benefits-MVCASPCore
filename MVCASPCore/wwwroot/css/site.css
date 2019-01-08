@@ -77,3 +77,8 @@ canvas {
     color: grey;
     margin-left: 2vw;
 }
+
+address {
+    margin-left: 10vw;
+    display: none;/*start as hidden*/
+}
