@@ -1,19 +1,4 @@
-﻿@*<br />
-    <form method="POST">
-        <label for="FName">Relative name</label>
-        <br />
-        <input type="text" id="FName" class="form-inline" name="FName" placeholder="first" />
-        <br />
-        <br />
-        <input type="text" id="LName" class="form-inline" name="LName" placeholder="last" />
-        <br />
-        <br />
-        <input type="submit" />
-    </form>
-    <br />*@
-
-
-<h1>FAQ</h1>
+﻿<h1>FAQ</h1>
 
 <p class="question">Q: How are benefits calculated</p>
 <p class="answer">
@@ -44,8 +29,24 @@
     </address>*@
 
 <address id="ad2">
+    <form method="POST">
+
+        <div class="form-group">
+            <label for="email" class="control-label">Your Email</label>
+            <input type="text" id="email"  class="form-control" name="email" placeholder="email" />
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" id="text" name="text" rows="3" placeholder="Question" ></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Send" class="btn btn-default" />
+        </div>
+    </form>
+    <br />
     <strong>Email:</strong> <a href="mailto:kepatoto@gmail.com">kepatoto@gmail.com</a><br />
     <strong>Phone:</strong><a href="tel:1-208-599-5425">(208) 599-5425</a>
+    <br />
 </address>
 
 

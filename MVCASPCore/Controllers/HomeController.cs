@@ -30,41 +30,41 @@ namespace MVCASPCore.Controllers
             double baseDependant = 500;
             double discount = .1;
 
-            ViewData["Benefits"] = baseBenefits;
-            ViewData["PayCheck"] = basePay;
-            ViewData["PerPerson"] = baseDependant;
-            ViewData["Discount"] = discount * 100;
-            ViewData["AName"] = (1 - discount) * baseDependant;
-            ViewData["numChecks"] = 26;
+            //ViewData["Benefits"] = baseBenefits;
+            //ViewData["PayCheck"] = basePay;
+            //ViewData["PerPerson"] = baseDependant;
+            //ViewData["Discount"] = discount * 100;
+            //ViewData["AName"] = (1 - discount) * baseDependant;
+            //ViewData["numChecks"] = 26;
 
-            var config = new EmailConfiguration();
-            config.SmtpPassword = "1q2ww3eee4rrrr";
-            config.SmtpPort = 465;
-            config.SmtpUsername = "contracthub749@gmail.com";
-            config.SmtpServer = "smtp.gmail.com";
+            //var config = new EmailConfiguration();
+            //config.SmtpPassword = "1q2ww3eee4rrrr";
+            //config.SmtpPort = 465;
+            //config.SmtpUsername = "contracthub749@gmail.com";
+            //config.SmtpServer = "smtp.gmail.com";
 
-            var service = new EmailService(config);
-            var message = new EmailMessage();
-            var sender = new EmailAddress();
-            var reciever = new EmailAddress();
+            //var service = new EmailService(config);
+            //var message = new EmailMessage();
+            //var sender = new EmailAddress();
+            //var reciever = new EmailAddress();
 
-            sender.Address = "contracthub749@gmail.com";
-            sender.Name = "contracthub749";
-            reciever.Address = "kepatoto@gmail.com";
-            reciever.Name = "kepatoto";
+            //sender.Address = "contracthub749@gmail.com";
+            //sender.Name = "contracthub749";
+            //reciever.Address = "kepatoto@gmail.com";
+            //reciever.Name = "kepatoto@gmail.com";
 
-            message.FromAddresses.Add(sender);
-            message.ToAddresses.Add(reciever);
-            message.Subject = "message";
-            message.Content = "content";
+            //message.FromAddresses.Add(sender);
+            //message.ToAddresses.Add(reciever);
+            //message.Subject = "message";
+            //message.Content = "content";
 
-            service.Send(message);
+            //service.Send(message);
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Contact(string FName, string LName)
+        public IActionResult Contact(string email, string text)
         {
             //TODO make it so it uses the appsettings.json
             var config = new EmailConfiguration();
@@ -80,13 +80,13 @@ namespace MVCASPCore.Controllers
 
             sender.Address = "contracthub749@gmail.com";
             sender.Name = "contracthub749";
-            reciever.Address = "kepatoto@gmail.com";
-            reciever.Name = "kepatoto";
+            reciever.Address = email;
+            reciever.Name = email;
 
             message.FromAddresses.Add(sender);
             message.ToAddresses.Add(reciever);
             message.Subject = "message";
-            message.Content = "content";
+            message.Content = text;
 
             service.Send(message);
             return Contact();
