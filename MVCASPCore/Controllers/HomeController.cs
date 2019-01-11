@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVCASPCore.Models;
 using MVCASPCore;
+using Microsoft.AspNetCore.Http;
+
 
 
 
@@ -13,7 +15,13 @@ namespace MVCASPCore.Controllers
 {
     public class HomeController : Controller
     {
-        
+        private readonly cSharpContext _context;
+
+        public HomeController(cSharpContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult About()
         {
             //change these to effect the about page
@@ -67,6 +75,26 @@ namespace MVCASPCore.Controllers
         public IActionResult Contact(string email, string text)
         {
             //TODO make it so it uses the appsettings.json
+            
+            if (email == null)
+            {
+                
+                if (HttpContext.Session.GetInt32("AId") != null)
+                {
+                    //why can't I await here
+                    var admin = _context.Admin.FirstOrDefault(a => a.AId == HttpContext.Session.GetInt32("AId"));
+                    email = admin.Email;
+                }
+                else
+                {
+                    email = "kepatoto@gmail.com";
+                    //return;//we faild, no email was entered maybe fix this later
+                }
+            }
+            if(text == null)
+            {
+                text = "The customer did not fill anything in";
+            }
             var config = new EmailConfiguration();
             config.SmtpPassword = "1q2ww3eee4rrrr";
             config.SmtpPort = 465;
