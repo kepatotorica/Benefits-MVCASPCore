@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MVCASPCore.Models;
+using MVCASPCore;
+
+
 
 namespace MVCASPCore.Controllers
 {
@@ -14,17 +17,6 @@ namespace MVCASPCore.Controllers
         public IActionResult About()
         {
             //change these to effect the about page
-            double basePay = 2000;
-            double baseBenefits = 1000;
-            double baseDependant = 500;
-            double discount = .1;
-
-            ViewData["Benefits"] = baseBenefits;
-            ViewData["PayCheck"] = basePay;
-            ViewData["PerPerson"] = baseDependant;
-            ViewData["Discount"] = discount * 100;
-            ViewData["AName"] = (1 - discount) * baseDependant;
-            ViewData["numChecks"] = 26;
 
             return View();
         }
@@ -32,8 +24,6 @@ namespace MVCASPCore.Controllers
         [HttpGet]
         public IActionResult Contact()
         {
-            string user = "Kepa Totorica";
-            ViewData["Message"] = user;
 
             double basePay = 2000;
             double baseBenefits = 1000;
@@ -47,16 +37,61 @@ namespace MVCASPCore.Controllers
             ViewData["AName"] = (1 - discount) * baseDependant;
             ViewData["numChecks"] = 26;
 
+            var config = new EmailConfiguration();
+            config.SmtpPassword = "1q2ww3eee4rrrr";
+            config.SmtpPort = 465;
+            config.SmtpUsername = "contracthub749@gmail.com";
+            config.SmtpServer = "smtp.gmail.com";
+
+            var service = new EmailService(config);
+            var message = new EmailMessage();
+            var sender = new EmailAddress();
+            var reciever = new EmailAddress();
+
+            sender.Address = "contracthub749@gmail.com";
+            sender.Name = "contracthub749";
+            reciever.Address = "kepatoto@gmail.com";
+            reciever.Name = "kepatoto";
+
+            message.FromAddresses.Add(sender);
+            message.ToAddresses.Add(reciever);
+            message.Subject = "message";
+            message.Content = "content";
+
+            service.Send(message);
+
             return View();
         }
 
-        //[HttpPost]
-        //public IActionResult Contact(string FName, string LName)
-        //{
-        //    ViewData["Added"] = true;
-        //    ViewData["NameAdded"] = FName;
-        //    return Contact();
-        //}
+        [HttpPost]
+        public IActionResult Contact(string FName, string LName)
+        {
+            //TODO make it so it uses the appsettings.json
+            var config = new EmailConfiguration();
+            config.SmtpPassword = "1q2ww3eee4rrrr";
+            config.SmtpPort = 465;
+            config.SmtpUsername = "contracthub749@gmail.com";
+            config.SmtpServer = "smtp.gmail.com";
+
+            var service = new EmailService(config);
+            var message = new EmailMessage();
+            var sender = new EmailAddress();
+            var reciever = new EmailAddress();
+
+            sender.Address = "contracthub749@gmail.com";
+            sender.Name = "contracthub749";
+            reciever.Address = "kepatoto@gmail.com";
+            reciever.Name = "kepatoto";
+
+            message.FromAddresses.Add(sender);
+            message.ToAddresses.Add(reciever);
+            message.Subject = "message";
+            message.Content = "content";
+
+            service.Send(message);
+            return Contact();
+
+        }
 
         public IActionResult Privacy()
         {
