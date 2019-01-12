@@ -55,7 +55,8 @@ namespace MVCASPCore.Controllers
 
             if (!String.IsNullOrEmpty(search)) // check if what we are searching by is null
             {
-                users = users.Where(s => s.LName.Contains(search) || s.FName.Contains(search) || s.Email.Contains(search)); // check last name, first name and email for a match TODO make it non case sensitive
+                search = search.ToUpper();
+                users = users.Where(s => s.LName.ToUpper().Contains(search) || s.FName.ToUpper().Contains(search) || s.Email.ToUpper().Contains(search)); // check last name, first name and email for a match TODO make it non case sensitive
             }
 
             switch (sortOrder)

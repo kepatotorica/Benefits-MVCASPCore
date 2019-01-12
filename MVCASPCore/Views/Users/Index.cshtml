@@ -32,7 +32,8 @@
 
 @* I don't why I can't set the styling fir <a> links globally in the bootstrap-darkly.css file, I think I am just not expeircend enough *@
 <table class="table">
-    <thead style="background: #0c392e; ">
+    <thead>
+        @* style="background: #0c392e; " *@
         <tr>
             <th>
                 <h4>@Html.ActionLink("First Name", "Index", new { sortOrder = 1 }, new { @style = "color: White; text-decoration: none" })</h4>

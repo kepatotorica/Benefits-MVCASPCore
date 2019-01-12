@@ -51,9 +51,7 @@ namespace MVCASPCore.Controllers
             {
                 return RedirectToAction("Login", "Admins");
             }
-
-            //ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
-            ViewData["UId"] = id;
+            ViewData["UId"] = id; //force the id to be that of the user we are creating this relative from
             return View();
         }
 
