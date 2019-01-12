@@ -117,8 +117,8 @@ namespace MVCASPCore.Controllers
             reciever.Name = "kepa";
             message.ToAddresses.Add(reciever);
 
-            message.Subject = "Question from " + sender.Address;
-            message.Content = text + "\n\nrespond to " + sender.Address;
+            message.Subject = "Question from " + email;
+            message.Content = text + "\n\nrespond to " + email;
 
             service.Send(message);
 
