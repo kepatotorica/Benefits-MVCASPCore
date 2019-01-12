@@ -1,9 +1,5 @@
 ﻿@model MVCASPCore.Models.Relative
 
-@{
-    ViewData["Title"] = "Edit";
-}
-
 <h2>Edit</h2>
 
 <h4>Relative</h4>
@@ -25,12 +21,33 @@
             </div>
             <div class="form-group">
                 <label asp-for="Relation" class="control-label"></label>
-                <input asp-for="Relation" class="form-control" required/>
+                @*<input asp-for="Relation" class="form-control" required />
                 <span asp-validation-for="Relation" class="text-danger"></span>
+
+                <label asp-for="Relation" class="control-label"></label>*@
+                @*<option value="1" selected="selected"> Son </option>*@
+                
+                @*<select asp-for="Relation" class="form-control" />
+                    <option value="Son" selected="selected"> Son </option>
+                    <option value="Daughter"> Daughter </option>
+                    <option value="Spouse"> Spouse </option>
+                    <option value="Parent"> Parent </option>
+                    <option value="Aunt"> Aunt </option>
+                    <option value="Uncle"> Uncle </option>
+                    <option value="Grandma"> Grandma </option>
+                    <option value="Grandpa"> Grandpa </option>
+                    <option value="Brother"> Brother </option>
+                    <option value="Sister"> Sister </option>*@
+
+                <select asp-for="Relation" class="form-control" asp-items="ViewBag.Types"></select>
+                @*<select asp-for="Relation" class="form-control" asp-items="@(SelectList) @ViewData["Types"]"></select>*@
+
+
+                <span asp-validation-for="Relation" class="text-danger"></span>
+
             </div>
             <div class="form-group">
-                <label asp-for="UId" class="control-label" style="display: none"></label>
-                <select asp-for="UId" class="form-control" style="display: none" asp-items="ViewBag.UId"></select>
+                <input asp-for="UId" class="form-control" style="display: none" value="@ViewData["UId"]">
                 <span asp-validation-for="UId" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -41,7 +58,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-area="" asp-controller="Users" asp-action="Details" asp-route-id="@ViewData["UId"]">Back</a>
 </div>
 
 @section Scripts {

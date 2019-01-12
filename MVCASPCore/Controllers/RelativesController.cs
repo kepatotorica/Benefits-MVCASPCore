@@ -20,18 +20,6 @@ namespace MVCASPCore.Controllers
             _context = context;
         }
 
-        // GET: Relatives
-        public async Task<IActionResult> Index()
-        {
-            if (HttpContext.Session.GetInt32("AId") < 0)
-            {
-                return RedirectToAction("Login", "Admins");
-            }
-
-            var cSharpContext = _context.Relative.Include(r => r.U);
-            return View(await cSharpContext.ToListAsync());
-        }
-
         // GET: Relatives/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,13 +43,6 @@ namespace MVCASPCore.Controllers
 
             return View(relative);
         }
-
-        // GET: Relatives/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
-        //    return View();
-        //}
 
         // GET: Users/Create
         public IActionResult Create(int? id)
@@ -118,7 +99,10 @@ namespace MVCASPCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["UId"] = new SelectList(_context.Users, "UId", "UId", relative.UId);
+            var users = await _context.Users.FirstOrDefaultAsync(u => u.UId == relative.UId);
+            ViewData["UId"] = users.UId;
+            ViewData["Types"] = new SelectList(_context.Relative.Select(t => t.Relation).Distinct());
+
             return View(relative);
         }
 
