@@ -52,8 +52,8 @@ namespace MVCASPCore.Controllers
                 return RedirectToAction("Login", "Admins");
             }
 
-            ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
-            ViewData["aId"] = id;
+            //ViewData["UId"] = new SelectList(_context.Users, "UId", "UId");
+            ViewData["UId"] = id;
             return View();
         }
 
