@@ -75,6 +75,7 @@ namespace MVCASPCore.Controllers
         public IActionResult Contact(string email, string text)
         {
             //TODO make it so it uses the appsettings.json
+            //TODO should I introduce a ticket system?
             
             if (email == null)
             {
@@ -106,17 +107,30 @@ namespace MVCASPCore.Controllers
             var sender = new EmailAddress();
             var reciever = new EmailAddress();
 
+
             sender.Address = "contracthub749@gmail.com";
             sender.Name = "contracthub749";
-            reciever.Address = email;
-            reciever.Name = email;
-
             message.FromAddresses.Add(sender);
+            
+            //internal message
+            reciever.Address = "kepatoto@gmail.com";
+            reciever.Name = "kepa";
             message.ToAddresses.Add(reciever);
-            message.Subject = "message";
-            message.Content = text;
+
+            message.Subject = "Question from " + sender.Address;
+            message.Content = text + "\n\nrespond to " + sender.Address;
 
             service.Send(message);
+
+            //external message
+            reciever.Address = email;
+            reciever.Name = email;
+            message.ToAddresses.Add(reciever);
+
+            message.Subject = "Thank your for contacting MVCASPCore!";
+            message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nMVCASPCore";
+            service.Send(message);
+
             return Contact();
 
         }
