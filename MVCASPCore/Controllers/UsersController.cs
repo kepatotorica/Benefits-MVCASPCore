@@ -45,7 +45,7 @@ namespace MVCASPCore.Controllers
             }
             else
             {
-                search = currentSearch; //if we have changed out pagination, or we have no search then reset search to our current search, which is stored in ViewData["CurrentSearch"]
+                search = currentSearch; //if we have changed our pagination, or we have no search then reset search to our current search, which is stored in ViewData["CurrentSearch"]
             }
 
             ViewData["CurrentSearch"] = search; //reset current search, for state preservation

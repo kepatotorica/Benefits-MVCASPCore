@@ -34,7 +34,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr onclick="location.href = '@(Url.Action("Edit", "Admins", new { id = item.AId}))'">
                 <td>
                     @Html.DisplayFor(modelItem => item.Username)
                 </td>
