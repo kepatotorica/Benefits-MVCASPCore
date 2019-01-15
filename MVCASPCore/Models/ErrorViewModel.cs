@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MVCASPCore.Models
+namespace Benefacts.Models
 {
     public class ErrorViewModel
     {

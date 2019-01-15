@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCASPCore.Models;
+using Benefacts.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 
-namespace MVCASPCore.Controllers
+namespace Benefacts.Controllers
 {
     public class AdminsController : Controller
     {

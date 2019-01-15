@@ -1,4 +1,4 @@
-﻿namespace MVCASPCore
+﻿namespace Benefacts
 {
     public interface IEmailConfiguration
     {

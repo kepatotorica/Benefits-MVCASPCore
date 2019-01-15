@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using MVCASPCore.Models; //using this allows me to attempt to log into the database
+using Benefacts.Models; //using this allows me to attempt to log into the database
 
-namespace MVCASPCore
+namespace Benefacts
 {
     public class Startup
     {
@@ -43,7 +43,7 @@ namespace MVCASPCore
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
             });
-            //using MVCASPCore.Models allows us to use cSharpContext
+            //using Benefacts.Models allows us to use cSharpContext
             services.AddDbContext<cSharpContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("cSharpDatabase")));//before UseNpgsql I had UseSqlServer and it caused tons of errors, becuase it was the wrong database provider
 

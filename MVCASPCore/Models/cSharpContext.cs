@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace MVCASPCore.Models
+namespace Benefacts.Models
 {
     public partial class cSharpContext : DbContext
     {

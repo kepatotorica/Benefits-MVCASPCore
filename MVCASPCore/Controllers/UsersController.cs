@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCASPCore.Models;
+using Benefacts.Models;
 using X.PagedList; //this is an awesome package, it allows you to do pagenation very easily
 using Microsoft.AspNetCore.Http;
 
-namespace MVCASPCore.Controllers
+namespace Benefacts.Controllers
 {
     public class UsersController : Controller
     {

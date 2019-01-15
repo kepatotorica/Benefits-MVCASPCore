@@ -4,14 +4,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MVCASPCore.Models;
-using MVCASPCore;
+using Benefacts.Models;
+using Benefacts;
 using Microsoft.AspNetCore.Http;
 
 
 
 
-namespace MVCASPCore.Controllers
+namespace Benefacts.Controllers
 {
     public class HomeController : Controller
     {
@@ -69,7 +69,8 @@ namespace MVCASPCore.Controllers
             var config = new EmailConfiguration();
             config.SmtpPassword = "1q2ww3eee4rrrr";
             config.SmtpPort = 465;
-            config.SmtpUsername = "contracthub749@gmail.com";
+            //config.SmtpUsername = "contracthub749@gmail.com";
+            config.SmtpUsername = "benefacts2000@gmail.com";
             config.SmtpServer = "smtp.gmail.com";
 
             var service = new EmailService(config);
@@ -78,8 +79,8 @@ namespace MVCASPCore.Controllers
             var reciever = new EmailAddress();
 
 
-            sender.Address = "contracthub749@gmail.com";
-            sender.Name = "contracthub749";
+            sender.Address = config.SmtpUsername;
+            sender.Name = "Benefacts";
             message.FromAddresses.Add(sender);
             
             //internal message
@@ -97,8 +98,8 @@ namespace MVCASPCore.Controllers
             reciever.Name = email;
             message.ToAddresses.Add(reciever);
 
-            message.Subject = "Thank your for contacting MVCASPCore!";
-            message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nMVCASPCore";
+            message.Subject = "Thank your for contacting Benefacts!";
+            message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nBenefacts";
             service.Send(message);
 
             //return Contact();

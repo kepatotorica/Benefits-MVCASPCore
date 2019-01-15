@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using MVCASPCore.Models;
+using Benefacts.Models;
 using Microsoft.AspNetCore.Http;
-//using static MVCASPCore.Controllers.UsersController;
+//using static Benefacts.Controllers.UsersController;
 
-namespace MVCASPCore.Controllers
+namespace Benefacts.Controllers
 {
     public class RelativesController : Controller
     {

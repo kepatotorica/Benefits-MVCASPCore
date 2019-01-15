@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MVCASPCore
+namespace Benefacts
 {
     public class EmailMessage
     {

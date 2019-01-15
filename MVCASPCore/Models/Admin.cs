@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MVCASPCore.Models
+namespace Benefacts.Models
 {
     public partial class Admin
     {
