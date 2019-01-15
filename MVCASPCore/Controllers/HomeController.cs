@@ -38,36 +38,6 @@ namespace MVCASPCore.Controllers
             double baseDependant = 500;
             double discount = .1;
 
-            //ViewData["Benefits"] = baseBenefits;
-            //ViewData["PayCheck"] = basePay;
-            //ViewData["PerPerson"] = baseDependant;
-            //ViewData["Discount"] = discount * 100;
-            //ViewData["AName"] = (1 - discount) * baseDependant;
-            //ViewData["numChecks"] = 26;
-
-            //var config = new EmailConfiguration();
-            //config.SmtpPassword = "1q2ww3eee4rrrr";
-            //config.SmtpPort = 465;
-            //config.SmtpUsername = "contracthub749@gmail.com";
-            //config.SmtpServer = "smtp.gmail.com";
-
-            //var service = new EmailService(config);
-            //var message = new EmailMessage();
-            //var sender = new EmailAddress();
-            //var reciever = new EmailAddress();
-
-            //sender.Address = "contracthub749@gmail.com";
-            //sender.Name = "contracthub749";
-            //reciever.Address = "kepatoto@gmail.com";
-            //reciever.Name = "kepatoto@gmail.com";
-
-            //message.FromAddresses.Add(sender);
-            //message.ToAddresses.Add(reciever);
-            //message.Subject = "message";
-            //message.Content = "content";
-
-            //service.Send(message);
-
             return View();
         }
 
@@ -131,8 +101,13 @@ namespace MVCASPCore.Controllers
             message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nMVCASPCore";
             service.Send(message);
 
-            return Contact();
+            //return Contact();
+            return RedirectToAction("Sent", "Home");
+        }
 
+        public IActionResult Sent()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
