@@ -22,17 +22,22 @@ namespace Benefacts.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// This serves the about page for the website, it is a descrition of the website as a whole
+        /// </summary>
+        /// <returns> A view that describes the website as a whole </returns>
         public IActionResult About()
         {
-            //change these to effect the about page
-
             return View();
         }
 
+        /// <summary>
+        /// Returns a faq with a contact form on it
+        /// </summary>
+        /// <returns> a view containing a faq and a contact form</returns>
         [HttpGet]
         public IActionResult Contact()
         {
-
             double basePay = 2000;
             double baseBenefits = 1000;
             double baseDependant = 500;
@@ -41,6 +46,15 @@ namespace Benefacts.Controllers
             return View();
         }
 
+        /// <summary>
+        /// This sends an email to the email provided in the contact form and a message
+        /// from the same form. If an admin is logged in, that email will be used.
+        /// This also sends me a message so I can find out who needs help, with what, and
+        /// how to reach them
+        /// </summary>
+        /// <param name="email"> The email of the person asking for help. </param>
+        /// <param name="text"> The message to be sent to kepatoto@gmail.com (me) </param>
+        /// <returns> returns to an action with either a failure (Failed) or success (Sent) view </returns>
         [HttpPost]
         public IActionResult Contact(string email, string text)
         {
@@ -109,21 +123,42 @@ namespace Benefacts.Controllers
             return RedirectToAction("Sent", "Home");
         }
 
+        /// <summary>
+        /// Returns a view after an email has been sent sucessfully
+        /// </summary>
+        /// <returns> A view of a successful email send</returns>
         public IActionResult Sent()
         {
             return View();
         }
 
+        /// <summary>
+        /// Same as Sent() but when we fail
+        /// </summary>
+        /// <returns> A view when something went wrong during the email process</returns>
         public IActionResult Failed()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns a view containing my cookie policy
+        /// </summary>
+        /// <returns> A view with my cookies policy </returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// Honestly I don't know what this is doing, it was auto generated. I would assume that 
+        /// it's primary function is to catch errors, but if it is, it is not set up properly
+        /// you can access this page from /Home/Error
+        /// but it says that is shouldn't be used for development mode.
+        /// So I assume it is the error page that a user would see if they were using the production
+        /// app
+        /// </summary>
+        /// <returns> A view displaying an error </returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
