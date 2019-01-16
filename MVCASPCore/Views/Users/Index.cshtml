@@ -6,15 +6,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 @*<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
-@*next three lines above are for the pagination, also turns out comments on the line of the model import breaks everything*@
-
-@{
-    ViewData["Title"] = "Users";
-}
 <br />
 <br />
-<h2 style="display: inline">@ViewData["Title"]</h2>
+<h2 style="display: inline">Users</h2>
 
+@* this is the popup from the search button *@
 <a href="#" style="float: right; position: relative; transform: translate(0%,-15%);" class="btn btn-default" data-toggle="popover" data-html="true" data-placement="left" data-content='
    <form method="POST">
        <div class="form-inline">
@@ -25,12 +21,12 @@
 </div>
    </form>
 '>Search</a>
-@* I know how terrible this css is *@
+
 <a asp-action="Create" class="btn btn-default" style="float: right; position: relative; transform: translate(-10%,-15%);">New User</a>
 
 
 
-@* I don't why I can't set the styling fir <a> links globally in the bootstrap-darkly.css file, I think I am just not expeircend enough *@
+@* the table of all users *@
 <table class="table">
     <thead>
         @* style="background: #0c392e; " *@
@@ -80,15 +76,16 @@
 </table>
 
 
-
+@* Below code displays the page number *@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
 @* the below method call is taking us too our Index controller, and passing in the values of our STORED search and sort as well as the page we have requested *@
 @X.PagedList.Mvc.Core.HtmlHelper.PagedListPager(Html, Model, page => Url.Action("Index", new { page, sortOrder = ViewData["CurrentSort"], currentSearch = ViewData["CurrentSearch"] })) <!--getting this to work took forever-->
-<!--thank you Akexzxcvbnm for your awesome answer: https://github.com/dncuug/X.PagedList/issues/96-->
-@*a data-toggle="modal" href="some.html" data-target="#modal">click me</a>*@
-@* Look into making a popout modal *@
+
+<!--thank you Akexzxcvbnm for your awesome answer: https://github.com/dncuug/X.PagedList/issues/96 -->
 
 
+@* Jquery code for a popover *@
 <script>
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
