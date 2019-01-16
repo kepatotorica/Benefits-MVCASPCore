@@ -31,7 +31,7 @@ namespace Benefacts.Controllers
         /// <param name="sortOrder">the order in which we are going to sort, stored as a bool</param>
         /// <param name="currentSearch"> what the current search value is, for persistence across refreshes </param>
         /// <param name="page"> the paginated page we requested </param>
-        /// <returns></returns>
+        /// <returns> a view representing users and the current search state</returns>
         public async Task<IActionResult> Index(string search, int sortOrder, string currentSearch, int? page)//I think the questionmark is to say it can't be null,
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -82,7 +82,11 @@ namespace Benefacts.Controllers
             return View(users.ToPagedList(pageNumber, pageSize));//X.PagedList is not asyncronous, so we aren't using await
         }
 
-        // GET: Users/Details/5
+        /// <summary>
+        /// The view returns the details for a particular User
+        /// </summary>
+        /// <param name="id"> the id of the user to be returned</param>
+        /// <returns> A view containing the details for a user</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -103,7 +107,7 @@ namespace Benefacts.Controllers
 
             List<Relative> temp = new List<Relative>(); //make a list of relatives
 
-            var relatives = from s in _context.Relative.Where(rel => rel.U.UId == id)//make a list of relatives model instances that point to this user
+            var relatives = from s in _context.Relative.Where(rel => rel.U.UId == id)//make a list of relatives that point to this user
                         select s;
             
             foreach (Relative rel in relatives)//this for each loop is used to add each relative to our temporary list that will be passed to the view
@@ -120,7 +124,10 @@ namespace Benefacts.Controllers
             return View(users);
         }
 
-        // GET: Users/Create
+        /// <summary>
+        /// Simply serves the form for the creation of a user
+        /// </summary>
+        /// <returns> A view containing a creation form</returns>
         public IActionResult Create()
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -130,9 +137,12 @@ namespace Benefacts.Controllers
             return View();
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// Actually creates a user based on what was POSTed from the form served from the made by create()
+        /// </summary>
+        /// <param name="users"> The user that is being created, could use some refactoring to make it easier to understand</param>
+        /// <returns> A view for the newly created user</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FName,LName,Email,Gender")] Users users)
@@ -151,7 +161,11 @@ namespace Benefacts.Controllers
             return View(users);
         }
 
-        // GET: Users/Edit/5
+        /// <summary>
+        /// returns the form for editing a user
+        /// </summary>
+        /// <param name="id">the user we are editing</param>
+        /// <returns>the form for editing a user</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -172,9 +186,13 @@ namespace Benefacts.Controllers
             return View(users);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        /// <summary>
+        /// Edits the database to reflect what was passed in through the edit form provided by the Edit(int? id) method
+        /// </summary>
+        /// <param name="id"> The id of the person we are editing </param>
+        /// <param name="users"> The user we are editing, like with create this is confusing since it is users instead of user</param>
+        /// <returns> A view showing the details for the user that was just edited </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UId,FName,LName,Email,Gender")] Users users)
@@ -212,7 +230,11 @@ namespace Benefacts.Controllers
             return View(users);
         }
 
-        // GET: Users/Delete/5
+        /// <summary>
+        /// A view that ensures you want to delete a user is returned
+        /// </summary>
+        /// <param name="id"> the id of the person that is being deleted</param>
+        /// <returns> A view that ensures you want to delete a user</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -234,7 +256,11 @@ namespace Benefacts.Controllers
             return View(users);
         }
 
-        // POST: Users/Delete/5
+        /// <summary>
+        /// Removes the user with the specified id from the database
+        /// </summary>
+        /// <param name="id"> the id of the user we are deleting</param>
+        /// <returns> A view of all users, the index view</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

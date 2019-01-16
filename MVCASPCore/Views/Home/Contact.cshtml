@@ -23,13 +23,8 @@
 <address id="ad2">
     <form method="POST">
 
-        @if (Context.Session.GetInt32("AId") > -1)
-        {
-            @*<div class="form-group">
-                <input type="text" id="email" class="form-control" name="email" placeholder="email" style="display:none"value="@Context.Session.GetInt32("AId")"/>
-            </div>*@
-        }
-        else
+        @* If no one is logged in prompt the user for an email *@
+        @if (!(Context.Session.GetInt32("AId") > -1))
         {
             <div class="form-group">
                 <label for="email" class="control-label">Your Email</label>
@@ -37,7 +32,7 @@
             </div>
         }
 
-
+        @* Always ask for a message to send to support (me) *@
         <div class="form-group">
             <label for="text" class="control-label">Your Question</label>
             <textarea class="form-control" id="text" name="text" rows="3" placeholder="Question" required></textarea>
@@ -47,7 +42,8 @@
         </div>
     </form>
     <br />
-    @*<strong>Email:</strong> <a href="mailto:kepatoto@gmail.com">kepatoto@gmail.com</a><br />*@
+    @*<strong>Email:</strong> <a href="mailto:kepatoto@gmail.com">kepatoto@gmail.com</a><br />*@ 
+    @* is it professional to include your email? I thought it might not be so I added an email system *@
     <strong>Phone:</strong><a href="tel:1-208-599-5425">(208) 599-5425</a>
     <br />
 </address>
@@ -55,10 +51,23 @@
 
 <script>
     var show = 1;
+
+    //the function called when you click contact us, it just calls the hide(id) function
     function showAdd() {
         hide("ad2");
     }
 
+    //this function just hides an element that is passed to it by id
+    function hide(id) {
+        var e = document.getElementById(id);
+        if (e.style.display == "block") {
+            e.style.display = "none";
+        } else {
+            e.style.display = "block";
+        }
+    }
+
+    //Possibly use this, right now it doesn't scale well
     //function slowHide(id) {
     //    var fadeTarget = document.getElementById(id);
     //    fadeTarget.style.display = "block";
@@ -77,13 +86,5 @@
     //    }, 25);
     //}
 
-    function hide(id) {
-        var e = document.getElementById(id);
-        if (e.style.display == "block") {
-            e.style.display = "none";
-        } else {
-            e.style.display = "block";
-        }
-    }
 
 </script>

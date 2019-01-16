@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Benefacts.Models;
 using Microsoft.AspNetCore.Http;
-//using static Benefacts.Controllers.UsersController;
 
 namespace Benefacts.Controllers
 {
@@ -18,30 +17,6 @@ namespace Benefacts.Controllers
         public RelativesController(cSharpContext context)
         {
             _context = context;
-        }
-
-        // GET: Relatives/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (HttpContext.Session.GetInt32("AId") < 0)
-            {
-                return RedirectToAction("Login", "Admins");
-            }
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var relative = await _context.Relative
-                .Include(r => r.U)
-                .FirstOrDefaultAsync(m => m.RelId == id);
-            if (relative == null)
-            {
-                return NotFound();
-            }
-
-            return View(relative);
         }
 
         // GET: Users/Create

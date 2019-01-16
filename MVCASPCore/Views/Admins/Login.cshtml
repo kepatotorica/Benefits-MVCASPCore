@@ -1,11 +1,7 @@
 ﻿@model Benefacts.Models.Admin
 @using Microsoft.AspNetCore.Http;
-
-@{
-    ViewData["Title"] = "Login";
-}
-
 <h2>Login</h2>
+
 <h4>Admin</h4>
 <hr />
 <div class="row">
@@ -29,26 +25,24 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-@*<p id="invalid" style="display: none">@ViewData["Invalid"]</p>*@
 <p id="invalid" style="display: none">@Context.Session.GetInt32("Attempts")</p>
 <script>
-    //this script makes it so you can only have three attempts. The problem is that you can cheese this
-    var invalid = document.getElementById("invalid").innerText;
-    var fadeTarget = document.getElementById("p1");
-    var numAllowed = 3;
-    if (invalid > 0) {
+    //this script makes it so you can only have three attempts. The problem is that you can cheese this becuase when your session is killed so are your log in attempts. I thought maybe I could use IP logging to fix this problem?
+
+    var invalid = document.getElementById("invalid").innerText; //The session value stored in a hidden element (I know dumb, but I was having trouble accessing the sessions in the javascript)
+    var fadeTarget = document.getElementById("p1"); //the element that we are going to fade out when we mess up the password
+    var numAllowed = 3;//our number of attempts
+    if (invalid > 0) //if we have messed up. Also note that invalid doesn't start as false since we set invalid !> 0 before the first attempt in our sessions
+    {
         fadeTarget.style.display = "inline";
         var temp = numAllowed - invalid
-        fadeTarget.innerText += ". " + temp + " attempts left";// "&nbsp; " won't add a space, so I removed the period from above
-        if (temp <= 0) {
+        fadeTarget.innerText += ". " + temp + " attempts left"
+        if (temp <= 0) //if we are out of attempts fade everything
+        {
             document.getElementById("name").disabled = true;
             document.getElementById("pass").disabled = true;
             document.getElementById("logForm").disabled = true;
@@ -56,19 +50,25 @@
             fadeTarget.innerText = "No more attempts";
         }
 
-        var fadeEffect = setInterval(function () {
-            if (!fadeTarget.style.opacity) {
+        //Fade our Failure text
+        var fadeEffect = setInterval(function ()
+        {
+            if (!fadeTarget.style.opacity)
+            {
                 fadeTarget.style.opacity = 5;
             }
-            if (fadeTarget.style.opacity > 0) {
+            if (fadeTarget.style.opacity > 0)
+            {
                 fadeTarget.style.opacity -= 0.05;
-            } else {
+            }
+            else
+            {
                 clearInterval(fadeEffect);
                 //fadeTarget.style.display = "none";//this is pointless if inline, but left it here if I change my mind
             }
         }, 25);
     }
-    //}
+
 </script>
 
 <script>

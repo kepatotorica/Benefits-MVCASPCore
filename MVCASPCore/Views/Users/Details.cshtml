@@ -168,7 +168,8 @@ else
     var chart2 = new CanvasJS.Chart("chartContainer2", config2);
 
     //check if the employee's first name starts with an A
-    if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
+    if (first.charAt(0) == "A" || first.charAt(0) == "a")
+    {
         y = 0.9 * 500.0;
     }
     obj["y"] = y
@@ -177,14 +178,19 @@ else
     config.data[0].dataPoints.push(obj) //add the current user to the dataset
 
     //if we have any Dependants, confusingly called "relatives" above, then process them
-    if (table != null) {
-        for (var i = 1, row; row = table.rows[i]; i++) {// For each depentant
+    if (table != null)
+    {
+        for (var i = 1, row; row = table.rows[i]; i++)// For each depentant
+        {
             var obj = new Object();
             first = row.cells[0].innerText; // grab the first name, which is stored in col 0 of the row
-            if (first.charAt(0) == "A" || first.charAt(0) == "a") { //check if we meet the discount condition
+            if (first.charAt(0) == "A" || first.charAt(0) == "a")//check if we meet the discount condition
+            { 
                 y = 0.9 * 500.0;
                 total -= y;
-            } else {
+            }
+            else
+            {
                 y = 500.0;
                 total -= y;
             }
@@ -196,15 +202,19 @@ else
 
     //Data for the react bar chart
     const data = []; 
-    if (total < 0) {
+    if (total < 0)
+    {
         data.push({ name: 'Per Paycheck', Deductions: -1 * (total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
-    } else {
+    }
+    else
+    {
         data.push({ name: 'Per Paycheck', Deductions: 0, Paycheck: 2000, Benefits: total / 26.0 });
     }
         
     //Deciding if their is a sufficent enough dent into yearlt benefits that it effects the paycheck
     var obj = new Object();
-    if (total < 0) { //if we have passed our total yearly benefits cap, start "deducting" from the paycheck
+    if (total < 0)  //if we have passed our total yearly benefits cap, start "deducting" from the paycheck
+    {
         total *= -1;
         total = total / checksPerYear;
         obj["y"] = payCheck - total;
@@ -216,7 +226,9 @@ else
         obj["label"] = "Deducted";
         config2.data[0].dataPoints.push(obj);
 
-    } else {//if we haven't used up our total yearlt benefits, then our entire paycheck is "remaining"
+    }
+    else //if we haven't used up our total yearlt benefits, then our entire paycheck is "remaining"
+    {
         obj["y"] = total;
         obj["label"] = "Remaining";
         config.data[0].dataPoints.push(obj)

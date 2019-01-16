@@ -1,9 +1,4 @@
 ﻿@model Benefacts.Models.Admin
-
-@{
-    ViewData["Title"] = "Create";
-}
-
 <h2>Create</h2>
 
 <h4>Admin</h4>
@@ -47,37 +42,39 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script>
+<script>//These functions are exactally the same between edit and create. I should probably put them in a shared file
+      //function that checks if the values of the two passwords match
     function checkPass() {
         var pass1 = document.getElementById('pass');
         var pass2 = document.getElementById('passCheck');
-        //var button = document.getElementById('sub').disabled;
-        var goodColor = "#66cc66";
+        var goodColor = "#0ce3ac";
         var badColor = "#ff6666";    
-        if (pass1.value == pass2.value) {
+        if (pass1.value == pass2.value)
+        {
             pass2.style.backgroundColor = goodColor;
             document.getElementById('sub').disabled = false;
-            //message.style.color = goodColor;
-            //message.innerHTML = "Passwords Match!"
-        } else {
+        }
+        else
+        {
             pass2.style.backgroundColor = badColor;
             document.getElementById('sub').disabled = true;
-            //message.style.color = badColor;
-            //message.innerHTML = "Passwords Do Not Match!"
         }
     }  
 </script>
 
 <script>
-    //check if capslock is pressed
+    //check if capslock is pressed, idk if this will work on all browsers, but I wanted to try it out and will be demoing on chrome
     document.addEventListener('keydown', function (event) {
         var caps = event.getModifierState && event.getModifierState('CapsLock');
         capsLabel = document.getElementById("caps");
         capsLabel2 = document.getElementById("caps2");
-        if (caps) {
+        if (caps)
+        {
             capsLabel.style.opacity = 1;
             capsLabel2.style.opacity = 1;
-        } else {
+        }
+        else
+        {
             capsLabel.style.opacity = 0;
             capsLabel2.style.opacity = 0;
         }

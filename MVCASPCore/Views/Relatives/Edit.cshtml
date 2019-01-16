@@ -1,5 +1,4 @@
 ﻿@model Benefacts.Models.Relative
-
 <h2>Edit</h2>
 
 <h4>Relative</h4>
@@ -21,28 +20,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Relation" class="control-label"></label>
-                @*<input asp-for="Relation" class="form-control" required />
-                <span asp-validation-for="Relation" class="text-danger"></span>
 
-                <label asp-for="Relation" class="control-label"></label>*@
-                @*<option value="1" selected="selected"> Son </option>*@
-                
-                @*<select asp-for="Relation" class="form-control" />
-                    <option value="Son" selected="selected"> Son </option>
-                    <option value="Daughter"> Daughter </option>
-                    <option value="Spouse"> Spouse </option>
-                    <option value="Parent"> Parent </option>
-                    <option value="Aunt"> Aunt </option>
-                    <option value="Uncle"> Uncle </option>
-                    <option value="Grandma"> Grandma </option>
-                    <option value="Grandpa"> Grandpa </option>
-                    <option value="Brother"> Brother </option>
-                    <option value="Sister"> Sister </option>*@
-
+                @* ViewBag is a really cool way to use a selector so you don't have to set selected or write the selection options individually! *@
                 <select asp-for="Relation" class="form-control" asp-items="ViewBag.Types"></select>
-                @*<select asp-for="Relation" class="form-control" asp-items="@(SelectList) @ViewData["Types"]"></select>*@
-
-
                 <span asp-validation-for="Relation" class="text-danger"></span>
 
             </div>

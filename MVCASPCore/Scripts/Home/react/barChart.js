@@ -1,4 +1,5 @@
 ﻿//data is in Users/Details.cshtml
+//this gets put into bundle.js then it is included in the shared layout file
 const { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } = Recharts;
 
 var React = require('react');

@@ -40,10 +40,10 @@
 <div>
     <a asp-action="Details" asp-route-id="@ViewData["UId"]">Back</a> |
     <a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a>
-    @*<a asp-action="Index">Back to List</a>*@
 
 </div>
 
+@* Cannot submit without the modles requirements being met *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
