@@ -5,20 +5,17 @@
     <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
     <script src="https://unpkg.com/recharts/umd/Recharts.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
-@{
-    ViewData["Title"] = "Benefits";
-}
-
-<h1>@ViewData["Title"]</h1>
+<h1>Benefits</h1>
 
 <h4>User</h4>
 
 
 <hr />
 
-
+@* Table showing the current user *@
 <table class="table">
     <thead>
         <tr>
@@ -54,16 +51,22 @@
 </table>
 <hr />
 
+
 <div class="box">
+    @* Paycheck donut *@
     <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
+
+    @* React bar chart *@
     <div id="container" style="margin: auto;"> </div>
 </div>
+
 <div id="chart-div" style="background-color: #222222">
+    @* Yearly benefits donut *@
     <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
 </div>
-
-
 <br />
+
+@* Table showing the dependants *@
 <h4>Dependents</h4>
 <hr />
 <li><a asp-area="" asp-controller="Relatives" asp-action="Create" asp-route-id="@ViewData["UId"]">Add new</a></li>
@@ -98,12 +101,8 @@
                         @std.Relation
                     </td>
                     <td>
-                        @*<a asp-action="Edit" asp-route-id="@ViewData["UId"]">Edit</a> |*@
-                        @*<a asp-action="Delete" asp-route-id="@ViewData["UId"]">Delete</a> |*@
-
                         <a asp-area="" asp-controller="Relatives" asp-action="Edit" asp-route-id="@std.RelId">Edit</a> |
                         <a asp-area="" asp-controller="Relatives" asp-action="Delete" asp-route-id="@std.RelId">Delete</a>
-                        @*<a asp-action="Index">Back to Employees</a>*@
                     </td>
                 </tr>
             }
@@ -115,159 +114,126 @@ else
     <h1>No Dependents</h1>
 }
 
-@*<a asp-action="Create" class="btn btn-primary" style="float: right; position: relative; left: -.5vw;">New User</a>*@
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script>
-    //for the chartJS chart
-    //const data = [];
     var table = document.getElementById("relatives");
     var y  = 500.0;
     var first = "@Html.DisplayFor(model => model.FName)";
     var total = 1000.0;
+    var payCheck = 2000.0;
+    var obj = new Object(); // redeclare evertime you push it to the json object, encapsulation
+    var checksPerYear = 26;
 
+    //Configuration for the yearly benefits donut chart
+    var config = {
+        animationEnabled: true,
+        backgroundColor: "#212121",
+        scaleFontColor: "#000000",
+        title: {
+            text: "Yearly Benefits",
+        },
+        data: [{
+            type: 'doughnut',
+            startAngle: 240,
+            yValueFormatString: "$0.##",
+            indexLabelFontColor: "white",
+            indexLabel: "{label} {y}",
+            dataPoints: []
+        }]
+    }
 
-    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
+    //Configuration for the Paycheck donut chart
+    var config2 = {
+        animationEnabled: true,
+        backgroundColor: "#212121",
+        scaleFontColor: "#000000",
+        title: {
+            text: "Paycheck",
+            },
+        data: [{
+            type: 'doughnut',
+            startAngle: 240,
+            yValueFormatString: "$0.##",
+            indexLabelFontColor: "white",
+            indexLabel: "{label} {y}",
+            dataPoints: []
+        }]
+    }
+
+    //Yearly benefits donut chart
+    var chart = new CanvasJS.Chart("chartContainer", config);
+
+    //Paycheck donut chart
+    var chart2 = new CanvasJS.Chart("chartContainer2", config2);
+
+    //check if the employee's first name starts with an A
+    if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
         y = 0.9 * 500.0;
     }
+    obj["y"] = y
+    obj["label"] = first + " (Employee)";
     total -= y;
+    config.data[0].dataPoints.push(obj) //add the current user to the dataset
+
+    //if we have any Dependants, confusingly called "relatives" above, then process them
     if (table != null) {
-        for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
+        for (var i = 1, row; row = table.rows[i]; i++) {// For each depentant
             var obj = new Object();
-            for (var j = 0, col; col = row.cells[j]; j++) {
-                if (j == 0) {//if first name
-                    first = col.innerText
-                    if (first.charAt(0) == "A" || first.charAt(0) == "a") {
-                        y = 0.9 * 500.0;
-                        total -= y;
-                    } else {
-                        y = 500.0;
-                        total -= y;
-                    }
-                }
+            first = row.cells[0].innerText; // grab the first name, which is stored in col 0 of the row
+            if (first.charAt(0) == "A" || first.charAt(0) == "a") { //check if we meet the discount condition
+                y = 0.9 * 500.0;
+                total -= y;
+            } else {
+                y = 500.0;
+                total -= y;
             }
+            obj["y"] = y;
+            obj["label"] = first;
+            config.data[0].dataPoints.push(obj)
         }
     }
-    const data = [];
+
+    //Data for the react bar chart
+    const data = []; 
     if (total < 0) {
-        data.push({ name: 'Per Paycheck', Deductions: -1*(total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
+        data.push({ name: 'Per Paycheck', Deductions: -1 * (total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
     } else {
         data.push({ name: 'Per Paycheck', Deductions: 0, Paycheck: 2000, Benefits: total / 26.0 });
     }
-
-    window.onload = function () {
-        var table = document.getElementById("relatives");
-        var y  = 500.0;
-        var first = "@Html.DisplayFor(model => model.FName)";
-        var total = 1000.0;
-        var payCheck = 2000.0;
-        var obj = new Object(); // redeclare evertime you push it to the json object, encapsulation
-        var checksPerYear = 26;
-
-        var config = {
-            animationEnabled: true,
-            backgroundColor: "#212121",
-            scaleFontColor: "#000000",
-            title: {
-                text: "Yearly @ViewData["title"]",
-            },
-            data: [{
-                type: 'doughnut',
-                startAngle: 240,
-                yValueFormatString: "$0.##",
-                indexLabelFontColor: "white",
-                indexLabel: "{label} {y}",
-                dataPoints: []
-            }]
-        }
-
-        var config2 = {
-            animationEnabled: true,
-            backgroundColor: "#212121",
-            scaleFontColor: "#000000",
-            title: {
-                text: "Paycheck",
-             },
-            data: [{
-                type: 'doughnut',
-                startAngle: 240,
-                yValueFormatString: "$0.##",
-                indexLabelFontColor: "white",
-                indexLabel: "{label} {y}",
-                dataPoints: []
-            }]
-        }
-
-        var chart = new CanvasJS.Chart("chartContainer", config);
-        var chart2 = new CanvasJS.Chart("chartContainer2", config2);
-
-        if (first.charAt(0) == "A" || first.charAt(0) == "a" ) {
-            y = 0.9 * 500.0;
-        }
-        obj["y"] = y
-        obj["label"] = first + " (Employee)";
-        total -= y;
-        config.data[0].dataPoints.push(obj) //add the current user to the dataset
-        if (table != null) {
-            for (var i = 1, row; row = table.rows[i]; i++) {//go through all of the relatives listed in the table and add them too our dataset
-                var obj = new Object();
-                for (var j = 0, col; col = row.cells[j]; j++) {
-                    if (j == 0) //if first name
-                    {
-                        first = col.innerText
-                        if (first.charAt(0) == "A" || first.charAt(0) == "a") {
-                            y = 0.9 * 500.0;
-                            total -= y;
-                        } else {
-                            y = 500.0;
-                            total -= y;
-                        }
-
-                        obj["y"] = y;
-                        obj["label"] = col.innerText;
-                        config.data[0].dataPoints.push(obj)
-                        //config.data[0].dataPoints.push({ y: y, label: col.innerText)
-                    }
-                }
-            }
-        }
-
+        
+    //Deciding if their is a sufficent enough dent into yearlt benefits that it effects the paycheck
+    var obj = new Object();
+    if (total < 0) { //if we have passed our total yearly benefits cap, start "deducting" from the paycheck
+        total *= -1;
+        total = total / checksPerYear;
+        obj["y"] = payCheck - total;
+        obj["label"] = "Remaining";
+        config2.data[0].dataPoints.push(obj)
 
         var obj = new Object();
-        if (total < 0) {
-            total *= -1;
-            total = total / checksPerYear;
-            config.data[0].dataPoints.forEach(func);
-            obj["y"] = payCheck - total;
-            obj["label"] = "Remaining";
-            config2.data[0].dataPoints.push(obj)
+        obj["y"] = total ;
+        obj["label"] = "Deducted";
+        config2.data[0].dataPoints.push(obj);
 
-            var obj = new Object();
-            obj["y"] = total ;
-            obj["label"] = "Deducted";
-            config2.data[0].dataPoints.push(obj);
+    } else {//if we haven't used up our total yearlt benefits, then our entire paycheck is "remaining"
+        obj["y"] = total;
+        obj["label"] = "Remaining";
+        config.data[0].dataPoints.push(obj)
 
-        } else {
-            obj["y"] = total;
-            obj["label"] = "Remaining";
-            config.data[0].dataPoints.push(obj)
+        var obj = new Object();
+        obj["y"] = payCheck;
+        obj["label"] = "Remaining";
+        config2.data[0].dataPoints.push(obj)
+    }
 
-            var obj = new Object();
-            obj["y"] = payCheck;
-            obj["label"] = "Remaining";
-            config2.data[0].dataPoints.push(obj)
-        }
 
+
+
+    //The function that draws the chartJS charts on page load, I was sloppy and reused simmilar code
+    window.onload = function () {
         chart.render();
         chart2.render();
 
-    }
-
-    function func(item, index, arr) {
-        var checksPerYear = 26;
-        //arr[index] = item * document.getElementById("multiplyWith").value;
-        //item["y"] = item["y"] / checksPerYear;
-        console.log(item)
     }
 </script>
