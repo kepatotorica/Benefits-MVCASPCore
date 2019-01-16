@@ -37,4 +37,10 @@
     <None Include="wwwroot\Scripts\dist\Home\react\bundle.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\Failed.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -49,63 +49,72 @@ namespace Benefacts.Controllers
             if (email == null)
             {
                 
-                if (HttpContext.Session.GetInt32("AId") != null)
+                if (HttpContext.Session.GetInt32("AId") > -1)
                 {
                     //why can't I await here
                     var admin = _context.Admin.FirstOrDefault(a => a.AId == HttpContext.Session.GetInt32("AId"));
-                    email = admin.Email;
+                    if(admin.Email != null)
+                    {
+                        email = admin.Email;
+                    }
+                    else
+                    {
+                        return RedirectToAction("Failed", "Home");
+                    }
                 }
                 else
                 {
                     email = "kepatoto@gmail.com";
-                    //TODO: return faild, no email was entered maybe fix this later
                 }
             }
             if(text == null)
             {
                 text = "The customer did not fill anything in";
+                return RedirectToAction("Failed", "Home");
             }
-            var config = new EmailConfiguration();
-            //config.SmtpPassword = "1q2ww3eee4rrrr";
-            //config.SmtpPort = 465;
-            ////config.SmtpUsername = "contracthub749@gmail.com";
-            //config.SmtpUsername = "benefacts2000@gmail.com";
-            //config.SmtpServer = "smtp.gmail.com";
-
-            var service = new EmailService(config);
-            var message = new EmailMessage();
-            var sender = new EmailAddress();
-            var reciever = new EmailAddress();
+            else
+            {
+                var config = new EmailConfiguration();
+                var service = new EmailService(config);
+                var message = new EmailMessage();
+                var sender = new EmailAddress();
+                var reciever = new EmailAddress();
 
 
-            sender.Address = config.SmtpUsername;
-            sender.Name = "Benefacts";
-            message.FromAddresses.Add(sender);
+                sender.Address = config.SmtpUsername;
+                sender.Name = "Benefacts";
+                message.FromAddresses.Add(sender);
             
-            //internal message
-            reciever.Address = "kepatoto@gmail.com";
-            reciever.Name = "kepa";
-            message.ToAddresses.Add(reciever);
+                //internal message
+                reciever.Address = "kepatoto@gmail.com";
+                reciever.Name = "kepa";
+                message.ToAddresses.Add(reciever);
 
-            message.Subject = "Question from " + email;
-            message.Content = text + "\n\nrespond to " + email;
+                message.Subject = "Question from " + email;
+                message.Content = text + "\n\nrespond to " + email;
 
-            service.Send(message);
+                service.Send(message);
 
-            //external message
-            reciever.Address = email;
-            reciever.Name = email;
-            message.ToAddresses.Add(reciever);
+                //external message
+                reciever.Address = email;
+                reciever.Name = email;
+                message.ToAddresses.Add(reciever);
 
-            message.Subject = "Thank your for contacting Benefacts!";
-            message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nBenefacts";
-            service.Send(message);
+                message.Subject = "Thank your for contacting Benefacts!";
+                message.Content = "We have recieved your message and have forwarded it along to Kepa, he will be with you shortly \n\nThank you, \nBenefacts";
+                service.Send(message);
+            }
 
             //return Contact();
             return RedirectToAction("Sent", "Home");
         }
 
         public IActionResult Sent()
+        {
+            return View();
+        }
+
+        public IActionResult Failed()
         {
             return View();
         }
