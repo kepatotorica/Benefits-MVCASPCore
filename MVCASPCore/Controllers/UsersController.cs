@@ -57,7 +57,7 @@ namespace Benefacts.Controllers
             if (!String.IsNullOrEmpty(search)) // check if what we are searching by is null
             {
                 search = search.ToUpper();
-                users = users.Where(s => s.LName.ToUpper().Contains(search) || s.FName.ToUpper().Contains(search) || s.Email.ToUpper().Contains(search)); // check last name, first name and email for a match TODO make it non case sensitive
+                users = users.Where(s => s.LName.ToUpper().Contains(search) || s.FName.ToUpper().Contains(search) || s.Email.ToUpper().Contains(search)); // check last name, first name and email for a match
             }
 
             switch (sortOrder)
@@ -77,7 +77,7 @@ namespace Benefacts.Controllers
             }
 
 
-            int pageSize = 10;//page size TODO make it so that a user can enter a page size
+            int pageSize = 10;//TODO: maybe make it so that a user can enter a page size (number of users)
             int pageNumber = page ?? 1; //return the left side if page isn't null, return 1 otherwize was
             return View(users.ToPagedList(pageNumber, pageSize));//X.PagedList is not asyncronous, so we aren't using await
         }
@@ -101,7 +101,6 @@ namespace Benefacts.Controllers
                 return RedirectToAction(nameof(Index));//asdf
             }
 
-            //TODO look into using the colletion provided in the modle.Users instead of this
             List<Relative> temp = new List<Relative>(); //make a list of relatives
 
             var relatives = from s in _context.Relative.Where(rel => rel.U.UId == id)//make a list of relatives model instances that point to this user

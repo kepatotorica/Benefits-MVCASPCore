@@ -44,7 +44,6 @@ namespace Benefacts.Controllers
         [HttpPost]
         public IActionResult Contact(string email, string text)
         {
-            //TODO make it so it uses the appsettings.json
             //TODO should I introduce a ticket system?
             
             if (email == null)
@@ -59,7 +58,7 @@ namespace Benefacts.Controllers
                 else
                 {
                     email = "kepatoto@gmail.com";
-                    //return;//we faild, no email was entered maybe fix this later
+                    //TODO: return faild, no email was entered maybe fix this later
                 }
             }
             if(text == null)
@@ -67,11 +66,11 @@ namespace Benefacts.Controllers
                 text = "The customer did not fill anything in";
             }
             var config = new EmailConfiguration();
-            config.SmtpPassword = "1q2ww3eee4rrrr";
-            config.SmtpPort = 465;
-            //config.SmtpUsername = "contracthub749@gmail.com";
-            config.SmtpUsername = "benefacts2000@gmail.com";
-            config.SmtpServer = "smtp.gmail.com";
+            //config.SmtpPassword = "1q2ww3eee4rrrr";
+            //config.SmtpPort = 465;
+            ////config.SmtpUsername = "contracthub749@gmail.com";
+            //config.SmtpUsername = "benefacts2000@gmail.com";
+            //config.SmtpServer = "smtp.gmail.com";
 
             var service = new EmailService(config);
             var message = new EmailMessage();

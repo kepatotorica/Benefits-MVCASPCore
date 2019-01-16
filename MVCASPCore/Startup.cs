@@ -28,7 +28,7 @@ namespace Benefacts
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                // Determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
 
@@ -36,8 +36,6 @@ namespace Benefacts
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton<IEmailConfiguration>(Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>());
-            services.AddTransient<IEmailService, EmailService>();
 
             services.AddSession(options =>
             {

@@ -82,8 +82,6 @@
 
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-<!--printing which page we are on, if someone changes the url to a larger number it prints 0, TODO but doesn't change the actual page
-    I haven't found the code for determining the page though, maybe ill fix it later, but it is a low priority-->
 @* the below method call is taking us too our Index controller, and passing in the values of our STORED search and sort as well as the page we have requested *@
 @X.PagedList.Mvc.Core.HtmlHelper.PagedListPager(Html, Model, page => Url.Action("Index", new { page, sortOrder = ViewData["CurrentSort"], currentSearch = ViewData["CurrentSearch"] })) <!--getting this to work took forever-->
 <!--thank you Akexzxcvbnm for your awesome answer: https://github.com/dncuug/X.PagedList/issues/96-->

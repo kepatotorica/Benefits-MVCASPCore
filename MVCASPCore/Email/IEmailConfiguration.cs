@@ -1,4 +1,6 @@
-﻿namespace Benefacts
+﻿
+
+namespace Benefacts
 {
     public interface IEmailConfiguration
     {
@@ -10,9 +12,9 @@
 
     public class EmailConfiguration : IEmailConfiguration
     {
-        public string SmtpServer { get; set; }
-        public int SmtpPort { get; set; }
-        public string SmtpUsername { get; set; }
-        public string SmtpPassword { get; set; }
+        public string SmtpServer { get; set; } = "smtp.gmail.com";
+        public int SmtpPort { get; set; } = 465;
+        public string SmtpUsername { get; set; } = "benefacts2000@gmail.com";
+        public string SmtpPassword { get; set; } = "1q2ww3eee4rrrr";
     }
 }
