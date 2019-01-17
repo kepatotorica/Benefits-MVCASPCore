@@ -279,6 +279,11 @@ namespace Benefacts.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// checks if a user exits
+        /// </summary>
+        /// <param name="id"> the id of the user we are checking for</param>
+        /// <returns> returns true or false depending on if a user can be found</returns>
         private bool UsersExists(int id)
         {
             return _context.Users.Any(e => e.UId == id);

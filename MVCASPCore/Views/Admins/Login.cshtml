@@ -33,13 +33,13 @@
 <script>
     //this script makes it so you can only have three attempts. The problem is that you can cheese this becuase when your session is killed so are your log in attempts. I thought maybe I could use IP logging to fix this problem?
 
-    var invalid = document.getElementById("invalid").innerText; //The session value stored in a hidden element (I know dumb, but I was having trouble accessing the sessions in the javascript)
+    var attempts = document.getElementById("invalid").innerText; //The session value stored in a hidden element (I know dumb, but I was having trouble accessing the sessions in the javascript)
     var fadeTarget = document.getElementById("p1"); //the element that we are going to fade out when we mess up the password
     var numAllowed = 3;//our number of attempts
-    if (invalid > 0) //if we have messed up. Also note that invalid doesn't start as false since we set invalid !> 0 before the first attempt in our sessions
+    if (attempts > 0) //if we have messed up. Also note that attempts doesn't start as false since we set attempts !> 0 before the first attempt in our sessions
     {
         fadeTarget.style.display = "inline";
-        var temp = numAllowed - invalid
+        var temp = numAllowed - attempts
         fadeTarget.innerText += ". " + temp + " attempts left"
         if (temp <= 0) //if we are out of attempts fade everything
         {

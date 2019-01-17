@@ -19,11 +19,15 @@ namespace Benefacts.Controllers
             _context = context;
         }
 
-        // GET: Users/Create
+        /// <summary>
+        /// Servers the form for creation 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Create(int? id)
         {
-            if (HttpContext.Session.GetInt32("AId") < 0)
-            {
+            if (HttpContext.Session.GetInt32("AId") < 0) //I would have made this a function, but the problem is the return needs to break us out of the function
+            {                                            //to do this would still require the if statement, atleast how I thought if. I could defenitly be wrong
                 return RedirectToAction("Login", "Admins");
             }
             ViewData["UId"] = id; //force the id to be that of the user we are creating this relative from
@@ -31,9 +35,11 @@ namespace Benefacts.Controllers
         }
 
 
-        // POST: Relatives/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// The database logic for the creation of a new relative
+        /// </summary>
+        /// <param name="relative"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RelId,FName,LName,Relation,UId")] Relative relative)
@@ -54,7 +60,11 @@ namespace Benefacts.Controllers
             return View(relative);
         }
 
-        // GET: Relatives/Edit/5
+        /// <summary>
+        /// Returns the view containing the form that allows us to edit a relative
+        /// </summary>
+        /// <param name="id"> the id of the relative we are editing</param>
+        /// <returns> A view for the relative with the passed in id</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -79,9 +89,14 @@ namespace Benefacts.Controllers
             return View(relative);
         }
 
-        // POST: Relatives/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// the database interactions needed to edit a relative. Happens after we post from
+        /// the form provided by the Edit(int? id) method
+        /// </summary>
+        /// <param name="id"> The id of the relative we are editing </param>
+        /// <param name="relative"> the updated values for the relative we are editing</param>
+        /// <returns> A view to the user that this relative is linked to</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("RelId,FName,LName,Relation,UId")] Relative relative)
@@ -121,7 +136,11 @@ namespace Benefacts.Controllers
             return View(relative);
         }
 
-        // GET: Relatives/Delete/5
+        /// <summary>
+        /// Returns the view that contains the delete form for given relative
+        /// </summary>
+        /// <param name="id"> the relative we are asking to remove</param>
+        /// <returns> A view that displays a relative, and prompts if we are sure about deleting them</returns>
         public async Task<IActionResult> Delete(int? id)
         {
             if (HttpContext.Session.GetInt32("AId") < 0)
@@ -145,7 +164,12 @@ namespace Benefacts.Controllers
             return View(relative);
         }
 
-        // POST: Relatives/Delete/5
+        /// <summary>
+        /// The database interatctions needed to delete a specified user from the database. Happens
+        /// after we post from the Delete(int? id)
+        /// </summary>
+        /// <param name="id"> The id of the relative that we are removing</param>
+        /// <returns> A view of the user that this relative USED to belong to</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -161,7 +185,12 @@ namespace Benefacts.Controllers
             //return RedirectToAction(nameof(Index));
             return RedirectToAction("Details", "Users", new { id = relative.UId });
         }
-
+        
+        /// <summary>
+        /// checks if a relative exits
+        /// </summary>
+        /// <param name="id"> the id of the relative we are checking for</param>
+        /// <returns> returns true or false depending on if a relative can be found</returns>
         private bool RelativeExists(int id)
         {
             return _context.Relative.Any(e => e.RelId == id);
