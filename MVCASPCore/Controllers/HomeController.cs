@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Benefacts.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller //what does inheriting the controller do?
     {
         private readonly cSharpContext _context;
 
