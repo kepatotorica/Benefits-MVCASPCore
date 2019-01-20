@@ -23,7 +23,7 @@ namespace BenefactsTests
         {
             using (var context = _serviceProvider.GetService<cSharpContext>())
             {
-                var controller = new AdminsController(new cSharpContext()); //I don't know if this is going to work
+                var controller = new AdminsController(context); //I don't know if this is going to work
                 var actResult = await controller.Index() as ViewResult;
                 Assert.Equal("Index", actResult.ViewName);
             }
