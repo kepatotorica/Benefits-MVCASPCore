@@ -21,12 +21,18 @@ namespace BenefactsTests
         [Fact]
         public void HomeAboutTest()
         {
-            //var context = new DbContextOptionsBuilder<cSharpContext>().UseNpgsql("Host=localhost;Database=cSharp;Username=postgres;Password=4310;Persist Security Info=True");//before UseNpgsql I had UseSqlServer and it caused tons of errors, becuase it was the wrong database provider
-            ////var optionsBuilder = new DbContextOptionsBuilder<cSharpContext>();
-            ////optionsBuilder.UseInMemoryDatabase();//THISSS IS NOT POSSIBLE WITH POSTGRESS!!!!!!!!!!!!
-            ////var _dbContext = new cSharpContext(optionsBuilder.Options);
-            ////var _context = Services
 
+            ///////////////////////////CONNECTING TO THE ACTUAL DATABASW
+            //var context = new DbContextOptionsBuilder<cSharpContext>().UseNpgsql("Host=localhost;Database=cSharp;Username=postgres;Password=4310;Persist Security Info=True");
+
+            ///////////////////////////IN MEMORY DATABASE
+            //var optionsBuilder = new DbContextOptionsBuilder<cSharpContext>();
+            //optionsBuilder.UseInMemoryDatabase();//THISSS IS NOT POSSIBLE WITH POSTGRESS!!!!!!!!!!!!
+            //var _dbContext = new cSharpContext(optionsBuilder.Options);
+            //var _context = Services
+
+
+            ///////////////////////////SQLITE COPY
             //var connection = new SqliteConnection("DataSource=:memory:");
             //connection.Open();
 
@@ -63,14 +69,13 @@ namespace BenefactsTests
             //    connection.Close();
             //}
 
+            ///////////////////////////USING DbOptionsFactory CLASS
             using (var context = new cSharpContext(DbOptionsFactory.DbContextOptions))
             {
-                var controller = new HomeController(context); //I don't know if this is going to work
+                var controller = new HomeController(context); //I don't know if this is going to work, it doesn't :(
                 var actResult = controller.About() as ViewResult;
                 Assert.Equal("About", actResult.ViewName);
             }
-            //var controller = new HomeController(new cSharpContext()); //I don't know if this is going to work
-            //var controller = new HomeController(serviceMock.Object); //I don't know if this is going to work
 
         }
 

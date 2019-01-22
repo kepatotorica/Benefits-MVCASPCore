@@ -28,4 +28,8 @@
     <ProjectReference Include="..\MVCASPCore\Benefacts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DatabaseScripts\" />
+  </ItemGroup>
+
 </Project>

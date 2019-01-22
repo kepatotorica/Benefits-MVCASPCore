@@ -13,9 +13,9 @@ namespace BenefactsTests
     {
         private ServiceProvider _serviceProvider;
 
-        public AdminsTest(DatabaseFixture fixture)
+        public AdminsTest(DbFixture fixture)
         {
-            //_serviceProvider = fixture.ServiceProvider;
+            _serviceProvider = fixture.ServiceProvider;
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace BenefactsTests
         {
             using (var context = _serviceProvider.GetService<cSharpContext>())
             {
-                var controller = new AdminsController(context); //I don't know if this is going to work
+                var controller = new AdminsController(context); //Doesn't work because cSharpContext != cSharpTestContext
                 var actResult = await controller.Index() as ViewResult;
                 Assert.Equal("Index", actResult.ViewName);
             }

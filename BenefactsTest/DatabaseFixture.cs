@@ -10,7 +10,8 @@ using System.Web.Mvc;
 using System;
 using DoomedDatabases.Postgres;
 using Xunit;
-
+//using BenefactsTests.DbCon;
+using Benefacts.Models;
 
 namespace BenefactsTests
 {
@@ -27,7 +28,14 @@ namespace BenefactsTests
             var connectionString = "User ID=postgres;Password=4310;Server=localhost;Database=cSharpTest;";
             testDatabase = new TestDatabaseBuilder().WithConnectionString(connectionString).Build();
             testDatabase.Create();
+            //testDatabase.RunScripts("./DatabaseScripts");
+            var builder = new DbContextOptionsBuilder<cSharpContext>();
+            builder.UseNpgsql(testDatabase.ConnectionString);
+            DbContext = new cSharpContext(builder.Options);
+            DbContext.Database.EnsureCreated();
         }
+
+        public cSharpContext DbContext { get; }
 
         public void Dispose()
         {
