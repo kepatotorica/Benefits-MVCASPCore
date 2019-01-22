@@ -10,6 +10,7 @@ using Benefacts.Models;
 using X.PagedList; //this is an awesome package, it allows you to do pagenation very easily
 using Microsoft.AspNetCore.Http;
 
+//TODO implement an interface for grabbing a User, do the same for Admin, and relative
 namespace Benefacts.Controllers
 {
     public class UsersController : Controller
@@ -39,7 +40,7 @@ namespace Benefacts.Controllers
                 return RedirectToAction("Login", "Admins");
             }
             ViewData["CurrentSort"] = sortOrder; //reset current sort order, for state preservation
-            if (search != null)
+            if (search != null) 
             {
                 page = 1;
             }
