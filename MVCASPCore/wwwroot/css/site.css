@@ -55,16 +55,11 @@ body {
     display: none;
 }
 
-canvas {
-    /*border: 1px dotted red;*/
-}
-
-
-
 .chart-container {
     position: relative;
     margin: auto;
     height: 50vh;
+    position: relative;
     /*width: 80vw;*/
     /*float: right;*/
 }
@@ -81,4 +76,26 @@ canvas {
 address {
     margin-left: 10vw;
     display: none;/*start as hidden*/
+}
+
+.bar_chart_header {
+    transform: translateX(5%); 
+    text-align: center; 
+    /* the font and color for the chart js charts */
+    color: rgb(51,51,51);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    min-width: 409px;
+
+}
+
+#container {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 40vw;
+    min-width: 212px; 
+    max-width: 682px;
+    height: 40vh;
+    max-height: 50vh;
 }

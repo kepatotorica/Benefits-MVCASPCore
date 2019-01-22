@@ -17,6 +17,12 @@ namespace Benefacts.Models
 
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Relative> Relative { get; set; }
+
+        public void ListAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

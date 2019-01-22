@@ -57,12 +57,16 @@
     <div class="chart-container" style="height: 400px; width: 40%;"><div id="chartContainer2" style="position: relative"></div></div>
 
     @* React bar chart *@
-    <div id="container" style="margin: auto;"> </div>
+    <div>
+        <h2 class="bar_chart_header">Per Paycheck</h2>
+        <div id="container" style="margin: auto;"> </div>
+    </div>
 </div>
 
 <div id="chart-div" style="background-color: #222222">
     @* Yearly benefits donut *@
-    <div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>
+    <div class="chart-container"><div id="chartContainer"></div></div>
+    @*<div class="chart-container"><div id="chartContainer" style="position: relative"></div></div>*@
 </div>
 <br />
 
@@ -204,11 +208,11 @@ else
     const data = []; 
     if (total < 0)
     {
-        data.push({ name: 'Per Paycheck', Deductions: -1 * (total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
+        data.push({ name: '', Deductions: -1 * (total / 26.0), Paycheck: 2000 + (total / 26.0), Benefits: total / 26.0 });
     }
     else
     {
-        data.push({ name: 'Per Paycheck', Deductions: 0, Paycheck: 2000, Benefits: total / 26.0 });
+        data.push({ name: '', Deductions: 0, Paycheck: 2000, Benefits: total / 26.0 });
     }
         
     //Deciding if their is a sufficent enough dent into yearlt benefits that it effects the paycheck

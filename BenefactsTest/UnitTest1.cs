@@ -10,14 +10,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace BenefactsTests
 {
 
+    // Make a secondary copy of the database
+    //-- SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname = 'cSharp' AND pid <> pg_backend_pid();
+    // then
+    //-- CREATE DATABASE "cSharpTest" WITH TEMPLATE "cSharp" OWNER postgres;
     public class UnitTest1
     {
-        //var context = new DbContextOptionsBuilder<cSharpContext>().UseNpgsql("Host=localhost;Database=cSharp;Username=postgres;Password=4310;Persist Security Info=True");//before UseNpgsql I had UseSqlServer and it caused tons of errors, becuase it was the wrong database provider
 
 
         [Fact]
         public void HomeAboutTest()
         {
+            //var context = new DbContextOptionsBuilder<cSharpContext>().UseNpgsql("Host=localhost;Database=cSharp;Username=postgres;Password=4310;Persist Security Info=True");//before UseNpgsql I had UseSqlServer and it caused tons of errors, becuase it was the wrong database provider
             ////var optionsBuilder = new DbContextOptionsBuilder<cSharpContext>();
             ////optionsBuilder.UseInMemoryDatabase();//THISSS IS NOT POSSIBLE WITH POSTGRESS!!!!!!!!!!!!
             ////var _dbContext = new cSharpContext(optionsBuilder.Options);
@@ -28,7 +32,7 @@ namespace BenefactsTests
 
             //try
             //{
-            //    var options = new DbContextOptionsBuilder<cSharpContext>()
+            //    var options = new DbContextOptionsBuilder<cSharpContext>() //trying to useSqlite as a temprary copy of a postgres database
             //        .UseSqlite(connection)
             //        .Options;
 

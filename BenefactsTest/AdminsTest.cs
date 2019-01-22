@@ -9,13 +9,13 @@ using Xunit;
 
 namespace BenefactsTests
 {
-    public class AdminsTest : IClassFixture<DbFixture>
+    public class AdminsTest : IClassFixture<DatabaseFixture>
     {
         private ServiceProvider _serviceProvider;
 
-        public AdminsTest(DbFixture fixture)
+        public AdminsTest(DatabaseFixture fixture)
         {
-            _serviceProvider = fixture.ServiceProvider;
+            //_serviceProvider = fixture.ServiceProvider;
         }
 
         [Fact]
